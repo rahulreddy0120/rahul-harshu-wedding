@@ -246,18 +246,6 @@ export default function EventsSection() {
                   {event.time}
                 </p>
               </div>
-
-              <div
-                className="mt-4 text-xs text-center py-2 tracking-[0.15em]"
-                style={{
-                  border: `1px solid ${event.accent}55`,
-                  color: event.accent,
-                  fontFamily: "'Lato', sans-serif",
-                  fontWeight: 300,
-                }}
-              >
-                {activeEvent === event.id ? "CLOSE ↑" : "VIEW DETAILS ↓"}
-              </div>
             </div>
           </motion.div>
         ))}
