@@ -96,8 +96,7 @@ const events: Event[] = [
     date: "Saturday, November 14, 2026",
     time: "Noon",
     venue: "TBD, Texas",
-    description:
-      "A vibrant, turmeric-filled afternoon ritual blessing the couple with prosperity and love. Get ready to get colorful — this is the most joyful celebration you'll ever be part of.",
+    description: "",
     dress: "Casual · Bright yellows & oranges preferred (wear clothes you don't mind getting yellow!)",
     details: [
       "Traditional Haldi ceremony",
@@ -300,16 +299,18 @@ export default function EventsSection() {
                   >
                     {ev.emoji} {ev.name}
                   </h3>
-                  <p
-                    className="leading-relaxed mb-6"
-                    style={{
-                      color: ev.textColor,
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {ev.description}
-                  </p>
+                  {ev.description && (
+                    <p
+                      className="leading-relaxed mb-6"
+                      style={{
+                        color: ev.textColor,
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: "1.1rem",
+                      }}
+                    >
+                      {ev.description}
+                    </p>
+                  )}
                   <p
                     className="text-xs"
                     style={{ color: ev.accent, fontFamily: "'Lato', sans-serif" }}
