@@ -208,7 +208,7 @@ export default function GlobalNav() {
                 className="italic"
                 style={{ color: "rgba(201,168,76,0.3)", fontFamily: "'Cormorant Garamond', serif" }}
               >
-                Two hearts, one forever — and Noah. 🐾
+                Two hearts, one forever — and Noah. 🐶
               </p>
             </div>
           </motion.div>
