@@ -19,7 +19,7 @@ const dressCodes = [
     tip: "Heels & dress shoes recommended — it's a glam night. Thursday Nov 12.",
   },
   {
-    event: "💍🪷 Engagement & Wedding Ceremony",
+    event: "💍 Engagement & Wedding Ceremony",
     theme: "Formal & Elegant",
     instruction: "Formal Indian or Western attire for both occasions. Sarees, lehengas, sherwanis, suits welcome — festive for the Engagement, elegant for the Wedding.",
     colors: [
