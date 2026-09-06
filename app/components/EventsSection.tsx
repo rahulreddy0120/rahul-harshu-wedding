@@ -31,7 +31,7 @@ const events: Event[] = [
     venue: "TBD, Texas",
     description:
       "Kick off the wedding week with the biggest party night. Family dance-offs, musical performances, and an evening that will be talked about for years. Come ready to dance.",
-    dress: "Festive Indian wear · Black, navy, or champagne gold preferred",
+    dress: "Festive Indian wear · Black, navy preferred",
     details: [
       "Family & friends dance performances",
       "Live music",
