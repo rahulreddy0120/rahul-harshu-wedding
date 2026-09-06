@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface Event {
   id: string;
@@ -134,8 +133,6 @@ const events: Event[] = [
 ];
 
 export default function EventsSection() {
-  const [activeEvent, setActiveEvent] = useState<string | null>(null);
-
   return (
     <section
       id="events"
@@ -168,12 +165,6 @@ export default function EventsSection() {
           The Wedding Festival
         </h2>
         <div className="section-divider mt-6 mb-6" />
-        <p
-          className="italic text-lg"
-          style={{ color: "#E8D5A3", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
-        >
-          Click any event to see the full details
-        </p>
       </motion.div>
 
       {/* Event Cards Grid */}
@@ -186,8 +177,7 @@ export default function EventsSection() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.7, delay: i * 0.1 }}
             whileHover={{ y: -8, scale: 1.02 }}
-            onClick={() => setActiveEvent(activeEvent === event.id ? null : event.id)}
-            className="relative cursor-pointer overflow-hidden"
+            className="relative overflow-hidden"
             style={{
               background: event.bg,
               border: `1px solid ${event.accent}33`,
@@ -250,108 +240,6 @@ export default function EventsSection() {
           </motion.div>
         ))}
       </div>
-
-      {/* Expanded event detail panel */}
-      <AnimatePresence>
-        {activeEvent && (() => {
-          const ev = events.find((e) => e.id === activeEvent)!;
-          return (
-            <motion.div
-              key={activeEvent}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-6xl mx-auto mt-4 overflow-hidden"
-              style={{
-                background: ev.bg,
-                border: `1px solid ${ev.accent}44`,
-              }}
-            >
-              <div className="p-8 md:p-12 grid md:grid-cols-2 gap-8">
-                <div>
-                  <span
-                    className="text-xs tracking-[0.25em] mb-3 block"
-                    style={{ color: ev.accent, fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
-                  >
-                    {ev.date} · {ev.time}
-                  </span>
-                  <h3
-                    className="mb-4"
-                    style={{
-                      fontFamily: "'Cinzel', serif",
-                      fontSize: "1.8rem",
-                      color: ev.accent,
-                      fontWeight: 400,
-                    }}
-                  >
-                    {ev.emoji} {ev.name}
-                  </h3>
-                  {ev.description && (
-                    <p
-                      className="leading-relaxed mb-6"
-                      style={{
-                        color: ev.textColor,
-                        fontFamily: "'Cormorant Garamond', serif",
-                        fontSize: "1.1rem",
-                      }}
-                    >
-                      {ev.description}
-                    </p>
-                  )}
-                  <p
-                    className="text-xs"
-                    style={{ color: ev.accent, fontFamily: "'Lato', sans-serif" }}
-                  >
-                    📍 {ev.venue}
-                  </p>
-                </div>
-                <div>
-                  <div className="mb-6">
-                    <p
-                      className="text-xs tracking-[0.2em] mb-3"
-                      style={{ color: ev.accent, fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
-                    >
-                      WHAT TO EXPECT
-                    </p>
-                    <ul className="space-y-2">
-                      {ev.details.map((d) => (
-                        <li
-                          key={d}
-                          className="flex items-start gap-2 text-sm"
-                          style={{ color: ev.textColor, fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem" }}
-                        >
-                          <span style={{ color: ev.accent }}>◆</span> {d}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div
-                    className="p-4"
-                    style={{
-                      background: ev.accentLight,
-                      border: `1px solid ${ev.accent}33`,
-                    }}
-                  >
-                    <p
-                      className="text-xs tracking-[0.2em] mb-2"
-                      style={{ color: ev.accent, fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
-                    >
-                      👗 DRESS CODE
-                    </p>
-                    <p
-                      className="text-sm italic"
-                      style={{ color: ev.textColor, fontFamily: "'Cormorant Garamond', serif" }}
-                    >
-                      {ev.dress}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          );
-        })()}
-      </AnimatePresence>
     </section>
   );
 }
