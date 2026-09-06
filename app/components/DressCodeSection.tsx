@@ -19,18 +19,18 @@ const dressCodes = [
     tip: "Heels & dress shoes recommended — it's a glam night. Thursday Nov 12.",
   },
   {
-    event: "💍 Engagement",
-    theme: "Festive & Bright",
-    instruction: "Semi-formal Indian wear. Sarees, lehengas, kurtas welcome. Bright festive colours encouraged.",
+    event: "💍🪷 Engagement & Wedding Ceremony",
+    theme: "Formal & Elegant",
+    instruction: "Formal Indian or Western attire for both occasions. Sarees, lehengas, sherwanis, suits welcome — festive for the Engagement, elegant for the Wedding.",
     colors: [
+      { name: "Ivory", hex: "#FAF6EE" },
       { name: "Royal Purple", hex: "#4C1D95" },
-      { name: "Fuchsia", hex: "#E879F9" },
-      { name: "Coral", hex: "#FB7185" },
-      { name: "Teal", hex: "#0D9488" },
-      { name: "Gold", hex: "#C9A84C" },
+      { name: "Blush Pink", hex: "#F4A7B9" },
+      { name: "Sage Green", hex: "#7CAF7C" },
+      { name: "Royal Blue", hex: "#1565C0" },
     ],
-    avoid: "All-white or all-red (reserved for bride at wedding)",
-    tip: "Noon ceremony on Friday Nov 13 — comfortable yet festive.",
+    avoid: "All-white, all-red, or Champagne Gold (reserved for the bride)",
+    tip: "Engagement — noon, Friday Nov 13. Wedding — noon, Sunday Nov 15. The couple's palette is ivory & gold, so complementary tones (blush, sage, royal blue) are perfect.",
   },
   {
     event: "🌿 Mehendi",
@@ -56,19 +56,6 @@ const dressCodes = [
     ],
     avoid: "Dark colours (they stain more visibly)",
     tip: "Saturday noon Nov 14 — wear clothes you're okay ruining, turmeric is forever!",
-  },
-  {
-    event: "🪷 Wedding Ceremony",
-    theme: "Formal & Elegant",
-    instruction: "Formal Indian or Western attire. Sarees, lehengas, sherwanis, suits welcome.",
-    colors: [
-      { name: "Ivory", hex: "#FAF6EE" },
-      { name: "Blush Pink", hex: "#F4A7B9" },
-      { name: "Sage Green", hex: "#7CAF7C" },
-      { name: "Royal Blue", hex: "#1565C0" },
-    ],
-    avoid: "All-white, all-red, or Champagne Gold (reserved for the bride)",
-    tip: "Sunday noon Nov 15 — the couple's palette is ivory & gold, so complementary tones (blush, sage, royal blue) are perfect.",
   },
 ];
 
