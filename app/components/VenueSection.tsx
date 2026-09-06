@@ -12,17 +12,17 @@ const venues = [
   },
   {
     event: "Mehendi & Haldi & Engagement",
-    name: "Venue TBD",
-    address: "Texas, USA",
-    mapQuery: "Texas+USA",
-    note: "These three celebrations share one venue. Location will be announced closer to the date.",
+    name: "Our Home",
+    address: "3333 Lakestriker Road, Celina, TX 75009",
+    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
+    note: "These three celebrations will be held at our home. We can't wait to host you.",
   },
   {
     event: "Wedding Ceremony & Reception",
-    name: "Venue TBD",
-    address: "Texas, USA",
-    mapQuery: "Texas+USA",
-    note: "The main venue will be announced 60 days before the wedding.",
+    name: "Our Home",
+    address: "3333 Lakestriker Road, Celina, TX 75009",
+    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
+    note: "The wedding ceremony and reception will be held at our home.",
   },
 ];
 
