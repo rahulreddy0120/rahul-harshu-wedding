@@ -7,7 +7,7 @@ const dressCodes = [
   {
     event: "✨ Sangeeth",
     theme: "Glamorous Night",
-    instruction: "Festive Indian wear or evening wear. Go bold — this is the party night that kicks off the celebrations!",
+    instruction: "Festive Indian wear, or party wear — a suit works great for men. Go bold — this is the party night that kicks off the celebrations!",
     colors: [
       { name: "Midnight Navy", hex: "#0D1B4B" },
       { name: "Champagne", hex: "#D4AF37" },
