@@ -109,6 +109,22 @@ const events: Event[] = [
     textColor: "#FFF3E0",
   },
   {
+    id: "prewedding",
+    emoji: "🪔",
+    name: "PRE-WEDDING CEREMONY",
+    subtitle: "Pellikuthuru & Pellikoduku",
+    date: "Saturday, November 14, 2026",
+    time: "Night",
+    venue: "TBD, Texas",
+    description: "",
+    dress: "Traditional Indian wear",
+    details: [],
+    bg: "linear-gradient(135deg, #2A0A2E 0%, #5B1E5F 40%, #8E3A96 100%)",
+    accent: "#F0A6E8",
+    accentLight: "rgba(240,166,232,0.15)",
+    textColor: "#FCE8FB",
+  },
+  {
     id: "wedding",
     emoji: "🪷",
     name: "WEDDING",
@@ -151,7 +167,7 @@ export default function EventsSection() {
           className="tracking-[0.3em] text-xs mb-4"
           style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
         >
-          5 CELEBRATIONS · 2 FAMILIES · 1 FOREVER
+          6 CELEBRATIONS · 2 FAMILIES · 1 FOREVER
         </p>
         <h2
           className="gold-text"
