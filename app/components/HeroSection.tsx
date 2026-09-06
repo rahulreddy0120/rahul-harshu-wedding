@@ -181,7 +181,7 @@ export default function HeroSection() {
                 letterSpacing: "0.1em",
               }}
             >
-              Two hearts. One forever.
+              Two hearts, one forever — and Noah. 🐾
             </p>
 
             <div className="section-divider mt-6 mb-6" />

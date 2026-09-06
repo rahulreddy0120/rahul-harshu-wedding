@@ -107,7 +107,7 @@ export default function Footer() {
             className="mt-2 italic"
             style={{ color: "rgba(201,168,76,0.5)", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
           >
-            Two hearts. One forever.
+            Two hearts, one forever — and Noah, our little pawprint on it all. 🐾
           </p>
         </motion.div>
 
