@@ -51,7 +51,6 @@ const dressCodes = [
     instruction: "Casual wear you don't mind getting turmeric on! Yellow is strongly encouraged.",
     colors: [
       { name: "Sunshine Yellow", hex: "#FDD835" },
-      { name: "Mango Orange", hex: "#FF8F00" },
       { name: "Cream", hex: "#FFF8E1" },
       { name: "White", hex: "#FFFFFF" },
     ],
