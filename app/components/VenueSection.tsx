@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 
 const venues = [
   {
-    event: "Sangeeth & Engagement & Mehendi",
+    event: "Sangeeth",
     name: "Venue TBD",
     address: "Texas, USA",
     mapQuery: "Texas+USA",
-    note: "Details coming soon — check back or watch your email for the venue announcement.",
+    note: "The Sangeeth has its own venue — details coming soon. Watch your email for the announcement.",
   },
   {
-    event: "Haldi",
+    event: "Mehendi & Haldi & Engagement",
     name: "Venue TBD",
     address: "Texas, USA",
     mapQuery: "Texas+USA",
-    note: "The venue will be announced closer to the date.",
+    note: "These three celebrations share one venue. Location will be announced closer to the date.",
   },
   {
     event: "Wedding Ceremony & Reception",
