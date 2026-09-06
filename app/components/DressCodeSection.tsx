@@ -63,13 +63,12 @@ const dressCodes = [
     instruction: "Formal Indian or Western attire. Sarees, lehengas, sherwanis, suits welcome.",
     colors: [
       { name: "Ivory", hex: "#FAF6EE" },
-      { name: "Champagne Gold", hex: "#C9A84C" },
       { name: "Blush Pink", hex: "#F4A7B9" },
       { name: "Sage Green", hex: "#7CAF7C" },
       { name: "Royal Blue", hex: "#1565C0" },
     ],
-    avoid: "All-white or all-red (reserved for bride)",
-    tip: "Sunday noon Nov 15 — the couple's palette is ivory & gold, complementary colours are perfect.",
+    avoid: "All-white, all-red, or Champagne Gold (reserved for the bride)",
+    tip: "Sunday noon Nov 15 — the couple's palette is ivory & gold, so complementary tones (blush, sage, royal blue) are perfect.",
   },
 ];
 
