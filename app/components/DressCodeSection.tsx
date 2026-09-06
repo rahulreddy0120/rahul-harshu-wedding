@@ -37,12 +37,10 @@ const dressCodes = [
     theme: "Vibrant & Festive",
     instruction: "Semi-formal Indian wear. Salwar kameez, lehenga, kurta. Western semi-formal also welcome.",
     colors: [
-      { name: "Parrot Green", hex: "#2D9148" },
-      { name: "Hot Pink", hex: "#E91E8C" },
       { name: "Sunny Yellow", hex: "#FDD835" },
       { name: "Deep Orange", hex: "#E65100" },
     ],
-    avoid: "Heavy bridal colours (red, maroon)",
+    avoid: "Heavy bridal colours (red, maroon), and pink or parrot green (reserved for the bride)",
     tip: "Friday night Nov 13 — comfortable flats recommended, lots of dancing!",
   },
   {
