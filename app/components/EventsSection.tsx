@@ -68,7 +68,7 @@ const events: Event[] = [
   },
   {
     id: "mehendi",
-    emoji: "🌿",
+    emoji: "🤚",
     name: "MEHENDI",
     subtitle: "Music · Henna · Cocktails",
     date: "Friday, November 13, 2026",

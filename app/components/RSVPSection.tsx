@@ -34,7 +34,7 @@ const defaultGuest = (): GuestEntry => ({
 const events = [
   { key: "sangeeth" as const, label: "Sangeeth", emoji: "✨", color: "#D4AF37" },
   { key: "engagement" as const, label: "Engagement", emoji: "💍", color: "#E879F9" },
-  { key: "mehendi" as const, label: "Mehendi", emoji: "🌿", color: "#2D9148" },
+  { key: "mehendi" as const, label: "Mehendi", emoji: "🤚", color: "#2D9148" },
   { key: "haldi" as const, label: "Haldi", emoji: "☀️", color: "#E65100" },
   { key: "wedding" as const, label: "Wedding", emoji: "🪷", color: "#C9A84C" },
 ];
