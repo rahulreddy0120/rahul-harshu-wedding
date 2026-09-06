@@ -19,10 +19,10 @@ const venues = [
   },
   {
     event: "Wedding Ceremony & Reception",
-    name: "Our Home",
-    address: "3333 Lakestriker Road, Celina, TX 75009",
-    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
-    note: "The wedding ceremony and reception will be held at our home.",
+    name: "Loco Lake Venue",
+    address: "2585 US-287, Sunset, TX 76270",
+    mapQuery: "Loco+Lake+Venue,+2585+US-287,+Sunset,+TX+76270",
+    note: "The wedding ceremony and reception will be held at Loco Lake Venue.",
   },
 ];
 
