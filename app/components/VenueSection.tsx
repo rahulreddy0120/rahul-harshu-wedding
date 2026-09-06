@@ -18,7 +18,7 @@ const venues = [
     note: "These three celebrations will be held at our home. We can't wait to host you.",
   },
   {
-    event: "Wedding Ceremony & Reception",
+    event: "Wedding Ceremony",
     name: "Loco Lake Venue",
     address: "2585 US-287, Sunset, TX 76270",
     mapQuery: "Loco+Lake+Venue,+2585+US-287,+Sunset,+TX+76270",
