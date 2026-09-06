@@ -245,7 +245,7 @@ export default function TravelSection() {
                 {[
                   "Book flights & hotels as soon as possible — November is peak travel season",
                   "Rideshare (Uber/Lyft) widely available in the Dallas–Fort Worth area",
-                  "We recommend arriving by Thursday, Nov 12 to enjoy all events comfortably",
+                  "We recommend arriving by Thursday, Nov 12 to enjoy all events comfortably — and if you can, come a day earlier on Wednesday, Nov 11 (Veterans Day). It's a holiday for many, so travelling that day may be easier and more relaxed.",
                   "Questions? Reach out via the contact on the RSVP form",
                 ].map((tip) => (
                   <li
