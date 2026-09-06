@@ -7,6 +7,21 @@ variable "github_repo" {
   default     = "rahulreddy0120/rahul-harshu-wedding"
 }
 
+# Numeric IDs for GitHub's immutable-subject OIDC claim format.
+# GitHub now issues sub claims like: repo:owner@<orgId>/name@<repoId>:...
+# so the trust policy must match that in addition to the classic slug form.
+variable "github_owner_id" {
+  description = "Numeric GitHub user/org ID (gh api /users/<owner> --jq .id)"
+  type        = string
+  default     = "66233363"
+}
+
+variable "github_repo_id" {
+  description = "Numeric GitHub repo ID (gh api /repos/<owner>/<repo> --jq .id)"
+  type        = string
+  default     = "1357709098"
+}
+
 # OIDC identity provider for GitHub Actions
 # NOTE: data.aws_caller_identity.current is declared in s3.tf and reused here.
 resource "aws_iam_openid_connect_provider" "github" {
@@ -37,7 +52,10 @@ data "aws_iam_policy_document" "github_assume" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo}:*"]
+      values = [
+        "repo:${var.github_repo}:*",                                            # classic slug format
+        "repo:${split("/", var.github_repo)[0]}@${var.github_owner_id}/${split("/", var.github_repo)[1]}@${var.github_repo_id}:*", # immutable-ID format
+      ]
     }
   }
 }
