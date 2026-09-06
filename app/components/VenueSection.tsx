@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 const venues = [
   {
     event: "Sangeeth",
-    name: "Venue TBD",
-    address: "Texas, USA",
-    mapQuery: "Texas+USA",
-    note: "The Sangeeth has its own venue — details coming soon. Watch your email for the announcement.",
+    name: "The Venue at Waterstone",
+    address: "10455 Co Rd 133, Celina, TX 75009",
+    mapQuery: "The+Venue+at+Waterstone,+10455+Co+Rd+133,+Celina,+TX+75009",
+    note: "Join us for a night of music and dance at The Venue at Waterstone.",
   },
   {
     event: "Mehendi & Haldi & Engagement",
