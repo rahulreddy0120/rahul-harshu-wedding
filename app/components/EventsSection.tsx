@@ -71,7 +71,7 @@ const events: Event[] = [
     name: "MEHENDI",
     subtitle: "Music · Henna · Cocktails",
     date: "Friday, November 13, 2026",
-    time: "Night",
+    time: "Evening",
     venue: "TBD, Texas",
     description:
       "An evening of intricate henna, joyful music, and cocktails as the celebrations continue. Watch the artists weave beautiful stories on hands that are about to hold each other forever.",
@@ -114,7 +114,7 @@ const events: Event[] = [
     name: "PRE-WEDDING CEREMONY",
     subtitle: "Pellikuthuru & Pellikoduku",
     date: "Saturday, November 14, 2026",
-    time: "Night",
+    time: "Evening",
     venue: "TBD, Texas",
     description: "",
     dress: "Traditional Indian wear",
