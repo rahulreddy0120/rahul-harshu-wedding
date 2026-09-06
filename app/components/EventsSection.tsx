@@ -103,10 +103,10 @@ const events: Event[] = [
       "Lunch served",
       "Outdoor celebration (weather permitting)",
     ],
-    bg: "linear-gradient(135deg, #7C2D12 0%, #C2410C 40%, #EA580C 100%)",
+    bg: "linear-gradient(135deg, #5C4A00 0%, #8A6D00 40%, #B8930A 100%)",
     accent: "#FDD835",
     accentLight: "rgba(253,216,53,0.15)",
-    textColor: "#FFF3E0",
+    textColor: "#FFF9E0",
   },
   {
     id: "prewedding",
