@@ -1,4 +1,5 @@
 import GlobalNav from "./components/GlobalNav";
+import EnvelopeIntro from "./components/EnvelopeIntro";
 import HeroSection from "./components/HeroSection";
 import CountdownSection from "./components/CountdownSection";
 import EventsSection from "./components/EventsSection";
@@ -12,6 +13,7 @@ import Footer from "./components/Footer";
 export default function Home() {
   return (
     <main>
+      <EnvelopeIntro />
       <GlobalNav />
       <HeroSection />
       <CountdownSection />

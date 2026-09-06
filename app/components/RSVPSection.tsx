@@ -80,9 +80,23 @@ export default function RSVPSection() {
     e.preventDefault();
     setSubmitState("submitting");
 
-    // Simulate submission (replace with actual API call e.g. Formspree, Airtable, or custom endpoint)
-    await new Promise((r) => setTimeout(r, 1500));
-    setSubmitState("success");
+    try {
+      const res = await fetch("https://5e21pxysa4.execute-api.us-east-1.amazonaws.com/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSubmitState("success");
+      } else {
+        console.error("RSVP error:", data);
+        setSubmitState("error");
+      }
+    } catch (err) {
+      console.error("RSVP fetch error:", err);
+      setSubmitState("error");
+    }
   };
 
   const inputStyle = {

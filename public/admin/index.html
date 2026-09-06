@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Host Portal · Harshini &amp; Rahul</title>
+<style>
+  :root {
+    --bg: #0A0A0A; --gold: #C9A84C; --cream: #E8D5A3; --panel: #121212;
+    --line: rgba(201,168,76,0.18); --soft: rgba(201,168,76,0.06);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--cream);
+    font-family: Georgia, 'Times New Roman', serif; min-height: 100vh;
+  }
+  a { color: var(--gold); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+  header.site { text-align: center; padding: 40px 20px 10px; border-bottom: 1px solid var(--line); }
+  header.site .detail { color: var(--gold); font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; }
+  header.site h1 { color: var(--gold); font-weight: normal; letter-spacing: .12em; font-size: 2rem; margin: 8px 0 4px; }
+  header.site p { color: var(--gold); font-style: italic; margin: 0; opacity: .8; }
+
+  /* Login */
+  .login { max-width: 380px; margin: 12vh auto 0; background: var(--panel); border: 1px solid var(--line); padding: 40px 32px; text-align: center; }
+  .login h2 { color: var(--gold); font-weight: normal; letter-spacing: .1em; margin: 0 0 6px; }
+  .login p.sub { color: var(--cream); opacity: .7; font-size: .9rem; margin: 0 0 26px; }
+  input[type=password] {
+    width: 100%; padding: 13px 14px; background: #000; border: 1px solid var(--line);
+    color: var(--cream); font-size: 1rem; font-family: inherit; letter-spacing: .05em; outline: none;
+  }
+  input[type=password]:focus { border-color: var(--gold); }
+  button {
+    width: 100%; margin-top: 16px; padding: 13px; background: var(--gold); color: #0A0A0A;
+    border: none; font-family: inherit; font-size: .82rem; letter-spacing: .18em; text-transform: uppercase;
+    cursor: pointer; transition: opacity .2s;
+  }
+  button:hover { opacity: .88; }
+  button:disabled { opacity: .5; cursor: default; }
+  .err { color: #E88; font-size: .85rem; margin-top: 14px; min-height: 18px; }
+
+  /* Dashboard */
+  .hidden { display: none; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin: 26px 0; }
+  .topbar h2 { color: var(--gold); font-weight: normal; letter-spacing: .08em; margin: 0; }
+  .actions { display: flex; gap: 10px; }
+  .actions button { width: auto; margin: 0; padding: 9px 16px; }
+  .btn-ghost { background: transparent; color: var(--gold); border: 1px solid var(--line); }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 14px; margin-bottom: 30px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); padding: 18px; text-align: center; }
+  .stat .num { color: var(--gold); font-size: 2rem; }
+  .stat .lbl { color: var(--cream); opacity: .7; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); font-size: .9rem; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--gold); font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: normal; background: var(--soft); }
+  td { color: var(--cream); }
+  td small { color: var(--gold); opacity: .75; }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; padding: 3px 7px; border: 1px solid var(--line); color: var(--gold); border-radius: 2px; }
+  .tablewrap { overflow-x: auto; }
+  .empty { text-align: center; padding: 40px; opacity: .6; }
+  footer { text-align: center; margin-top: 40px; color: rgba(201,168,76,0.4); font-size: .78rem; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="detail">శుభమస్తు · Host Portal</div>
+  <h1>Harshini ♾ Rahul</h1>
+  <p>November 12–15, 2026 · Texas</p>
+</header>
+
+<!-- LOGIN VIEW -->
+<div id="loginView" class="login">
+  <h2>Host Login</h2>
+  <p class="sub">Enter the host password to view RSVPs</p>
+  <form id="loginForm">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password" autofocus />
+    <button id="loginBtn" type="submit">Enter</button>
+  </form>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<!-- DASHBOARD VIEW -->
+<div id="dashView" class="wrap hidden">
+  <div class="topbar">
+    <h2>RSVP Dashboard</h2>
+    <div class="actions">
+      <button class="btn-ghost" id="refreshBtn" type="button">Refresh</button>
+      <button class="btn-ghost" id="csvBtn" type="button">Export CSV</button>
+      <button id="logoutBtn" type="button">Log out</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="tablewrap">
+    <table id="rsvpTable">
+      <thead>
+        <tr>
+          <th>Primary Guest</th>
+          <th>Contact</th>
+          <th>Party</th>
+          <th>Events</th>
+          <th>Dietary / Song / Message</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody id="rsvpBody"></tbody>
+    </table>
+  </div>
+
+  <footer>Two hearts. One forever. · Harshini &amp; Rahul · 2026</footer>
+</div>
+
+<script>
+  const API = "/api";
+  const TOKEN_KEY = "hr_admin_token";
+  const EVENTS = ["sangeeth", "engagement", "mehendi", "haldi", "wedding"];
+
+  const $ = (id) => document.getElementById(id);
+  const loginView = $("loginView"), dashView = $("dashView");
+
+  function showDash() { loginView.classList.add("hidden"); dashView.classList.remove("hidden"); }
+  function showLogin() { dashView.classList.add("hidden"); loginView.classList.remove("hidden"); }
+
+  // --- Login ---
+  $("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = $("loginBtn"), err = $("loginErr");
+    err.textContent = ""; btn.disabled = true; btn.textContent = "Checking…";
+    try {
+      const res = await fetch(API + "/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: $("password").value }),
+      });
+      const data = await res.json();
+      if (!res.ok) { err.textContent = data.error || "Login failed"; return; }
+      localStorage.setItem(TOKEN_KEY, data.token);
+      $("password").value = "";
+      await loadDashboard();
+    } catch (_) {
+      err.textContent = "Network error. Try again.";
+    } finally {
+      btn.disabled = false; btn.textContent = "Enter";
+    }
+  });
+
+  $("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem(TOKEN_KEY);
+    showLogin();
+  });
+  $("refreshBtn").addEventListener("click", loadDashboard);
+  $("csvBtn").addEventListener("click", exportCsv);
+
+  let currentData = null;
+
+  async function loadDashboard() {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) { showLogin(); return; }
+    const res = await fetch(API + "/rsvps", { headers: { "Authorization": "Bearer " + token } });
+    if (res.status === 401) { localStorage.removeItem(TOKEN_KEY); showLogin(); $("loginErr").textContent = "Session expired. Please log in again."; return; }
+    const data = await res.json();
+    currentData = data;
+    renderStats(data);
+    renderTable(data.rsvps || []);
+    showDash();
+  }
+
+  function renderStats(d) {
+    const be = d.by_event || {};
+    const cards = [
+      ["Parties", d.total_rsvps || 0],
+      ["Total Guests", d.total_guests || 0],
+      ["Sangeeth", be.sangeeth || 0],
+      ["Engagement", be.engagement || 0],
+      ["Mehendi", be.mehendi || 0],
+      ["Haldi", be.haldi || 0],
+      ["Wedding", be.wedding || 0],
+    ];
+    $("stats").innerHTML = cards.map(([lbl, num]) =>
+      `<div class="stat"><div class="num">${num}</div><div class="lbl">${lbl}</div></div>`
+    ).join("");
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  function renderTable(rsvps) {
+    const body = $("rsvpBody");
+    if (!rsvps.length) {
+      body.innerHTML = `<tr><td colspan="6" class="empty">No RSVPs yet.</td></tr>`;
+      return;
+    }
+    // newest first
+    const sorted = [...rsvps].sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+    body.innerHTML = sorted.map((r) => {
+      const guests = (r.guests || []).map((g) => {
+        const evs = EVENTS.filter((e) => g[e]).map((e) => `<span class="chip">${e}</span>`).join("");
+        return `<div style="margin-bottom:6px;">◆ ${esc(g.name || "Guest")}<div class="chips" style="margin-top:3px;">${evs}</div></div>`;
+      }).join("");
+      const extras = [
+        r.dietary ? `<div><small>Dietary:</small> ${esc(r.dietary)}</div>` : "",
+        r.songRequest ? `<div><small>Song:</small> ${esc(r.songRequest)}</div>` : "",
+        r.message ? `<div><small>Message:</small> ${esc(r.message)}</div>` : "",
+      ].join("") || `<span style="opacity:.4">—</span>`;
+      const when = r.submittedAt ? new Date(r.submittedAt).toLocaleString() : "—";
+      return `<tr>
+        <td><strong style="color:var(--gold)">${esc(r.primaryName)}</strong><div><small>${r.guestCount || 0} guest(s)</small></div></td>
+        <td>${esc(r.email)}<div><small>${esc(r.phone || "")}</small></div></td>
+        <td>${guests}</td>
+        <td>${EVENTS.filter((e) => (r.events || {})[e]).map((e) => `<span class="chip">${e} ${(r.events||{})[e]}</span>`).join(" ")}</td>
+        <td>${extras}</td>
+        <td>${esc(when)}</td>
+      </tr>`;
+    }).join("");
+  }
+
+  function exportCsv() {
+    if (!currentData || !currentData.rsvps) return;
+    const rows = [["Primary Name", "Email", "Phone", "Guest Count", "Guests", "Sangeeth", "Engagement", "Mehendi", "Haldi", "Wedding", "Dietary", "Song Request", "Message", "Submitted At"]];
+    currentData.rsvps.forEach((r) => {
+      const ev = r.events || {};
+      rows.push([
+        r.primaryName || "", r.email || "", r.phone || "", r.guestCount || 0,
+        (r.guests || []).map((g) => g.name).join("; "),
+        ev.sangeeth || 0, ev.engagement || 0, ev.mehendi || 0, ev.haldi || 0, ev.wedding || 0,
+        r.dietary || "", r.songRequest || "", (r.message || "").replace(/\n/g, " "), r.submittedAt || "",
+      ]);
+    });
+    const csv = rows.map((row) => row.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "wedding-rsvps-" + new Date().toISOString().slice(0, 10) + ".csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // Auto-login if token present
+  if (localStorage.getItem(TOKEN_KEY)) { loadDashboard(); }
+</script>
+</body>
+</html>
