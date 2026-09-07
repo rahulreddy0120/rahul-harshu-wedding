@@ -320,3 +320,112 @@ body {
     transform: rotateX(180deg);
   }
 }
+
+/* ─── Envelope Intro — Cartoon Style ─────────────────────────────────────── */
+
+/* Bouncier, chunkier cartoon envelope */
+.envelope.cartoon {
+  animation: cartoonBob 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 18px 0 rgba(0, 0, 0, 0.18))
+    drop-shadow(0 26px 40px rgba(0, 0, 0, 0.5));
+}
+.envelope.cartoon .env-body,
+.envelope.cartoon .env-back,
+.envelope.cartoon .letter {
+  border-radius: 14px;
+}
+/* Thick cartoon outlines */
+.envelope.cartoon .env-body,
+.envelope.cartoon .env-flap,
+.envelope.cartoon .env-left,
+.envelope.cartoon .env-right,
+.envelope.cartoon .env-bottom {
+  box-shadow: inset 0 0 0 3px rgba(90, 60, 10, 0.35);
+}
+.envelope.cartoon .wax-seal {
+  border: 3px solid #f3d9a0;
+  animation: sealPulse 1.8s ease-in-out infinite;
+}
+.envelope.cartoon.open .wax-seal {
+  animation: sealPop 0.5s ease forwards;
+}
+
+@keyframes cartoonBob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+@keyframes sealPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.08); }
+}
+@keyframes sealPop {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  40% { transform: translate(-50%, -50%) scale(1.4) rotate(12deg); }
+  100% { transform: translate(-50%, -50%) scale(0) rotate(40deg); opacity: 0; }
+}
+
+/* Cartoon "pop" burst behind the seal on open */
+.pop-burst {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 3rem;
+  color: #ffd76a;
+  opacity: 0;
+  pointer-events: none;
+  text-shadow: 0 0 18px rgba(255, 215, 106, 0.8);
+}
+.pop-burst.go {
+  animation: popBurst 0.7s ease-out 0.15s forwards;
+}
+@keyframes popBurst {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+  40% { transform: translate(-50%, -50%) scale(1.6) rotate(90deg); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2.6) rotate(180deg); opacity: 0; }
+}
+
+/* Draggable Noah */
+.noah-drag {
+  position: relative;
+  margin-top: 34px;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff6df 0%, #f2dfae 70%, #e6cd8f 100%);
+  border: 3px solid #c9a84c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.18), 0 12px 24px rgba(0, 0, 0, 0.45);
+  touch-action: none;
+  user-select: none;
+}
+.noah-drag:active { cursor: grabbing; }
+.noah-emoji {
+  font-size: 2.8rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+.noah-tail {
+  position: absolute;
+  bottom: -10px;
+  right: -6px;
+  font-size: 1.1rem;
+  transform: rotate(18deg);
+}
+
+.tap-hint.delivered {
+  color: #ffd76a;
+  font-size: 0.8rem;
+}
+
+/* Reduced-motion: calm everything down */
+@media (prefers-reduced-motion: reduce) {
+  .envelope.cartoon,
+  .envelope.cartoon .wax-seal,
+  .noah-drag {
+    animation: none !important;
+  }
+}
