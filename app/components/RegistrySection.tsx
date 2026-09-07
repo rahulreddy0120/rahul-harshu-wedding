@@ -11,12 +11,6 @@ const giftOptions = [
     href: "https://www.amazon.com/gift-cards",
   },
   {
-    icon: "🎯",
-    name: "Target Gift Card",
-    note: "For the little things that make a house a home.",
-    href: "https://www.target.com/gift-cards",
-  },
-  {
     icon: "💳",
     name: "Visa Gift Card",
     note: "Your choice — for anything we may need.",
