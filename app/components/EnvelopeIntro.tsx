@@ -150,6 +150,7 @@ export default function EnvelopeIntro() {
             Noah delivered your invitation! 🐶💌
           </motion.p>
         )}
+        <p className="audio-note">🔊 Best experienced with sound on</p>
       </div>
     </div>
   );
