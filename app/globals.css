@@ -429,3 +429,52 @@ body {
     animation: none !important;
   }
 }
+
+/* ─── Floating Music Player ──────────────────────────────────────────────── */
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(10, 10, 10, 0.72);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold);
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.music-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(201, 168, 76, 0.15);
+}
+.music-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-block;
+}
+.music-icon.spin {
+  animation: musicSpin 3s linear infinite;
+}
+@keyframes musicSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (max-width: 640px) {
+  .music-label { display: none; }
+  .music-btn { padding: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .music-icon.spin { animation: none; }
+}

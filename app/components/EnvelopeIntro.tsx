@@ -46,6 +46,7 @@ export default function EnvelopeIntro() {
     setOpening(true);
     try {
       window.sessionStorage.setItem("hr_envelope_seen", "1");
+      window.dispatchEvent(new Event("hr:play-music"));
     } catch {
       /* ignore */
     }
