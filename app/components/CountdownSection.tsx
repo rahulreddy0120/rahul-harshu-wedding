@@ -121,12 +121,12 @@ export default function CountdownSection() {
           className="gold-text mb-12"
           style={{
             fontFamily: "'Cinzel', serif",
-            fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+            fontSize: "clamp(1.1rem, 3vw, 1.8rem)",
             fontWeight: 400,
-            letterSpacing: "0.1em",
+            letterSpacing: "0.08em",
           }}
         >
-          November 15, 2026
+          శుభమస్తు · SHUBHAMASTU · ఓం నమో వేంకటేశాయ · SHUBHAMASTU · శుభమస్తు
         </motion.h2>
 
         <div className="flex items-center justify-center gap-4 md:gap-8 flex-wrap">
