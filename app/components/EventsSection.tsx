@@ -10,6 +10,9 @@ interface Event {
   date: string;
   time: string;
   venue: string;
+  venueName: string;
+  venueAddress: string;
+  mapQuery: string;
   description: string;
   dress: string;
   details: string[];
@@ -28,6 +31,9 @@ const events: Event[] = [
     date: "Thursday, November 12, 2026",
     time: "Evening",
     venue: "TBD, Texas",
+    venueName: "The Venue at Waterstone",
+    venueAddress: "10455 Co Rd 133, Celina, TX 75009",
+    mapQuery: "The+Venue+at+Waterstone,+10455+Co+Rd+133,+Celina,+TX+75009",
     description:
       "Kick off the wedding week with the biggest party night. Family dance-offs, musical performances, and an evening that will be talked about for years. Come ready to dance.",
     dress: "Festive Indian wear · Black, navy preferred",
@@ -51,6 +57,9 @@ const events: Event[] = [
     date: "Friday, November 13, 2026",
     time: "Noon",
     venue: "TBD, Texas",
+    venueName: "Our Home",
+    venueAddress: "3333 Lakestriker Road, Celina, TX 75009",
+    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
     description:
       "The official exchange of rings as both families come together to bless Rahul and Harshu. A beautiful afternoon ceremony followed by lunch and celebration.",
     dress: "Semi-formal Indian wear · Bright, festive colours welcome",
@@ -73,6 +82,9 @@ const events: Event[] = [
     date: "Friday, November 13, 2026",
     time: "Evening",
     venue: "TBD, Texas",
+    venueName: "Our Home",
+    venueAddress: "3333 Lakestriker Road, Celina, TX 75009",
+    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
     description:
       "An evening of intricate henna, joyful music, and cocktails as the celebrations continue. Watch the artists weave beautiful stories on hands that are about to hold each other forever.",
     dress: "Semi-formal · Parrot Green, Pink, or Yellow encouraged",
@@ -95,6 +107,9 @@ const events: Event[] = [
     date: "Saturday, November 14, 2026",
     time: "Noon",
     venue: "TBD, Texas",
+    venueName: "Our Home",
+    venueAddress: "3333 Lakestriker Road, Celina, TX 75009",
+    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
     description: "",
     dress: "Casual · Bright yellows & oranges preferred (wear clothes you don't mind getting yellow!)",
     details: [
@@ -116,6 +131,9 @@ const events: Event[] = [
     date: "Saturday, November 14, 2026",
     time: "Evening",
     venue: "TBD, Texas",
+    venueName: "Our Home",
+    venueAddress: "3333 Lakestriker Road, Celina, TX 75009",
+    mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
     description: "",
     dress: "Traditional Indian wear",
     details: [],
@@ -132,6 +150,9 @@ const events: Event[] = [
     date: "Sunday, November 15, 2026",
     time: "Noon",
     venue: "TBD, Texas",
+    venueName: "Loco Lake Venue",
+    venueAddress: "2585 US-287, Sunset, TX 76270",
+    mapQuery: "Loco+Lake+Venue,+2585+US-287,+Sunset,+TX+76270",
     description:
       "The main event. In the presence of our families and God, Rahul and Harshu exchange vows and begin their forever. A traditional Telugu ceremony followed by a reception.",
     dress: "Formal Indian or Western attire · Ivory, gold, pastels welcome",
@@ -251,6 +272,40 @@ export default function EventsSection() {
                 >
                   {event.time}
                 </p>
+
+                {/* Venue + directions */}
+                <div
+                  className="mt-4 pt-4"
+                  style={{ borderTop: `1px solid ${event.accent}33` }}
+                >
+                  <p
+                    className="text-sm mb-1"
+                    style={{ color: event.textColor, fontFamily: "'Cormorant Garamond', serif", fontWeight: 400 }}
+                  >
+                    📍 {event.venueName}
+                  </p>
+                  <p
+                    className="text-xs mb-3"
+                    style={{ color: event.textColor, fontFamily: "'Lato', sans-serif", fontWeight: 300, opacity: 0.7 }}
+                  >
+                    {event.venueAddress}
+                  </p>
+                  <a
+                    href={`https://maps.google.com/?q=${event.mapQuery}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-xs tracking-[0.15em] px-3 py-2 transition-all duration-300"
+                    style={{
+                      border: `1px solid ${event.accent}66`,
+                      color: event.accent,
+                      fontFamily: "'Lato', sans-serif",
+                      fontWeight: 300,
+                      textDecoration: "none",
+                    }}
+                  >
+                    GET DIRECTIONS →
+                  </a>
+                </div>
               </div>
             </div>
           </motion.div>
