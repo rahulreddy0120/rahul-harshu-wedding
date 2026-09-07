@@ -41,7 +41,7 @@ export default function GallerySection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
@@ -78,7 +78,7 @@ export default function GallerySection() {
               key={item.id}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px 200px 0px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
               whileHover={{ scale: 1.02 }}
               onClick={() => setLightbox(i)}

@@ -39,7 +39,7 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 1 }}
           className="mb-6 flex items-center justify-center gap-6"
         >
@@ -55,7 +55,7 @@ export default function Footer() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="tracking-[0.3em] text-xs mb-8"
           style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
@@ -66,7 +66,7 @@ export default function Footer() {
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 1, delay: 0.3 }}
           className="gold-text"
           style={{
@@ -85,7 +85,7 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 1, delay: 0.6 }}
         >
           <p
@@ -115,7 +115,7 @@ export default function Footer() {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ delay: 0.8 }}
           className="mt-14 flex flex-wrap justify-center gap-6"
         >
@@ -144,7 +144,7 @@ export default function Footer() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ delay: 1 }}
           className="mt-14 text-xs"
           style={{

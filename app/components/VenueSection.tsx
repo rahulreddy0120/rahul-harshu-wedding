@@ -53,7 +53,7 @@ export default function VenueSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
@@ -84,7 +84,7 @@ export default function VenueSection() {
               key={v.event}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px 200px 0px" }}
               transition={{ duration: 0.7, delay: i * 0.1 }}
               className="p-6 relative"
               style={{
@@ -158,7 +158,7 @@ export default function VenueSection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 0.8 }}
           className="w-full overflow-hidden"
           style={{

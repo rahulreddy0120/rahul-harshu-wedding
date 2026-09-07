@@ -71,7 +71,7 @@ export default function TravelSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
@@ -107,7 +107,7 @@ export default function TravelSection() {
             <motion.h3
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px 200px 0px" }}
               className="mb-8 text-xs tracking-[0.25em]"
               style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
             >
@@ -119,7 +119,7 @@ export default function TravelSection() {
                   key={hotel.name}
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "0px 0px 200px 0px" }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   className="p-5 relative"
                   style={{
@@ -177,7 +177,7 @@ export default function TravelSection() {
             <motion.h3
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px 200px 0px" }}
               className="mb-8 text-xs tracking-[0.25em]"
               style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
             >
@@ -189,7 +189,7 @@ export default function TravelSection() {
                   key={ap.code}
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "0px 0px 200px 0px" }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                   className="p-4 flex items-start gap-4"
                   style={{
@@ -228,7 +228,7 @@ export default function TravelSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "0px 0px 200px 0px" }}
               className="p-6"
               style={{
                 background: "rgba(201,168,76,0.06)",

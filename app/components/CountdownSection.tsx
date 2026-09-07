@@ -26,7 +26,7 @@ function CountUnit({ value, label }: { value: number; label: string }) {
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "0px 0px 200px 0px" }}
       transition={{ duration: 0.8 }}
       className="flex flex-col items-center"
     >
@@ -106,7 +106,7 @@ export default function CountdownSection() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           className="tracking-[0.3em] text-xs mb-4"
           style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
         >
@@ -116,7 +116,7 @@ export default function CountdownSection() {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 0.8, delay: 0.1 }}
           className="gold-text mb-12"
           style={{
@@ -148,7 +148,7 @@ export default function CountdownSection() {
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ duration: 1, delay: 0.4 }}
           className="section-divider mt-12"
         />
@@ -156,7 +156,7 @@ export default function CountdownSection() {
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ delay: 0.6 }}
           className="mt-6 italic text-lg"
           style={{
