@@ -24,8 +24,12 @@ export default function EnvelopeIntro() {
       setDismissed(true);
       return;
     }
-    // Lock scroll while the intro is up
+    // Lock scroll while the intro is up, and start at the very top
     setVisible(true);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
@@ -43,8 +47,14 @@ export default function EnvelopeIntro() {
     // After the open animation, fade the overlay away and restore scroll
     window.setTimeout(() => {
       setVisible(false);
+      // Reveal the site from the very top (hero), not wherever the page was
+      window.scrollTo(0, 0);
       document.body.style.overflow = "";
-      window.setTimeout(() => setDismissed(true), 700);
+      window.scrollTo(0, 0);
+      window.setTimeout(() => {
+        setDismissed(true);
+        window.scrollTo(0, 0);
+      }, 700);
     }, 1900);
   }
 
