@@ -171,6 +171,12 @@ export default function RSVPSection() {
           >
             Please RSVP by October 1, 2026
           </p>
+          <p
+            className="italic mt-4"
+            style={{ color: "#C9A84C", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300, fontSize: "1.05rem" }}
+          >
+            &ldquo;Please attend my parents&rsquo; wedding!&rdquo; — Noah Salla 🐶
+          </p>
         </motion.div>
 
         <AnimatePresence mode="wait">
