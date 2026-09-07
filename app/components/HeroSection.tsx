@@ -147,7 +147,7 @@ export default function HeroSection() {
                 letterSpacing: "0.05em",
               }}
             >
-              Harshini
+              Harshini Reddy
             </h1>
             <p
               className="gold-text"
@@ -171,7 +171,7 @@ export default function HeroSection() {
                 letterSpacing: "0.05em",
               }}
             >
-              Rahul
+              Rahul Reddy
             </h1>
             <p
               className="gold-text"
