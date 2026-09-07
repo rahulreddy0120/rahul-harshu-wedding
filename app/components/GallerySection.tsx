@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Placeholder gallery items — replace with real engagement/pre-wedding photos
+// Real photos live in /public/gallery. Placeholders fill the rest until more arrive.
 const galleryItems = [
-  { id: 1, alt: "Rahul & Harshu — Photo 1", placeholder: true, aspect: "portrait" },
-  { id: 2, alt: "Rahul & Harshu — Photo 2", placeholder: true, aspect: "landscape" },
-  { id: 3, alt: "Rahul & Harshu — Photo 3", placeholder: true, aspect: "portrait" },
-  { id: 4, alt: "Rahul & Harshu — Photo 4", placeholder: true, aspect: "landscape" },
-  { id: 5, alt: "Rahul & Harshu — Photo 5", placeholder: true, aspect: "portrait" },
-  { id: 6, alt: "Rahul & Harshu — Photo 6", placeholder: true, aspect: "landscape" },
+  { id: 1, alt: "Harshini & Rahul with Noah", src: "/gallery/couple-noah-1.jpg", placeholder: false, aspect: "portrait" },
+  { id: 2, alt: "Harshini & Rahul relaxing with Noah", src: "/gallery/couple-noah-2.jpg", placeholder: false, aspect: "landscape" },
+  { id: 3, alt: "Harshini & Rahul at the Grand Canyon", src: "/gallery/couple-grandcanyon.jpg", placeholder: false, aspect: "portrait" },
+  { id: 4, alt: "Rahul & Harshu — Photo 4", src: "", placeholder: true, aspect: "landscape" },
+  { id: 5, alt: "Rahul & Harshu — Photo 5", src: "", placeholder: true, aspect: "portrait" },
+  { id: 6, alt: "Rahul & Harshu — Photo 6", src: "", placeholder: true, aspect: "landscape" },
 ];
 
 const gradients = [
@@ -67,7 +67,7 @@ export default function GallerySection() {
             className="italic text-lg"
             style={{ color: "#5C4A2A", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
           >
-            Pre-wedding photos coming soon — check back closer to the date.
+            A few of our favourite moments — with more to come.
           </p>
         </motion.div>
 
@@ -88,21 +88,30 @@ export default function GallerySection() {
                 background: gradients[i % gradients.length],
               }}
             >
-              {/* Placeholder content */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div
-                  className="text-4xl mb-3 opacity-30"
-                  style={{ color: "#C9A84C" }}
-                >
-                  ♾
+              {/* Real image or placeholder */}
+              {!item.placeholder && item.src ? (
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div
+                    className="text-4xl mb-3 opacity-30"
+                    style={{ color: "#C9A84C" }}
+                  >
+                    ♾
+                  </div>
+                  <p
+                    className="text-xs tracking-[0.15em] opacity-30 text-center px-4"
+                    style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
+                  >
+                    PHOTO COMING SOON
+                  </p>
                 </div>
-                <p
-                  className="text-xs tracking-[0.15em] opacity-30 text-center px-4"
-                  style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
-                >
-                  PHOTO COMING SOON
-                </p>
-              </div>
+              )}
 
               {/* Hover overlay */}
               <div
@@ -147,15 +156,24 @@ export default function GallerySection() {
                   maxHeight: "80vh",
                 }}
               >
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-6xl mb-4" style={{ color: "#C9A84C", opacity: 0.3 }}>♾</div>
-                  <p
-                    className="text-sm tracking-[0.2em] opacity-30"
-                    style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif" }}
-                  >
-                    PHOTO COMING SOON
-                  </p>
-                </div>
+                {!galleryItems[lightbox].placeholder && galleryItems[lightbox].src ? (
+                  <img
+                    src={galleryItems[lightbox].src}
+                    alt={galleryItems[lightbox].alt}
+                    className="absolute inset-0 w-full h-full object-contain"
+                    style={{ background: "#0A0A0A" }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="text-6xl mb-4" style={{ color: "#C9A84C", opacity: 0.3 }}>♾</div>
+                    <p
+                      className="text-sm tracking-[0.2em] opacity-30"
+                      style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif" }}
+                    >
+                      PHOTO COMING SOON
+                    </p>
+                  </div>
+                )}
 
                 <button
                   onClick={() => setLightbox(null)}
