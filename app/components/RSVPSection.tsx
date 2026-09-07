@@ -25,12 +25,12 @@ interface FormData {
 
 const defaultGuest = (): GuestEntry => ({
   name: "",
-  sangeeth: true,
-  engagement: true,
-  mehendi: true,
-  haldi: true,
-  prewedding: true,
-  wedding: true,
+  sangeeth: false,
+  engagement: false,
+  mehendi: false,
+  haldi: false,
+  prewedding: false,
+  wedding: false,
 });
 
 const events = [
@@ -55,8 +55,10 @@ export default function RSVPSection() {
     message: "",
   });
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [validationError, setValidationError] = useState("");
 
   const updateGuest = (index: number, field: keyof GuestEntry, value: string | boolean) => {
+    if (validationError) setValidationError("");
     setForm((prev) => {
       const guests = [...prev.guests];
       guests[index] = { ...guests[index], [field]: value };
@@ -81,6 +83,21 @@ export default function RSVPSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Every guest must be attending at least one event
+    const eventKeys = ["sangeeth", "engagement", "mehendi", "haldi", "prewedding", "wedding"] as const;
+    const guestWithNoEvent = form.guests.findIndex(
+      (g) => !eventKeys.some((k) => g[k])
+    );
+    if (guestWithNoEvent !== -1) {
+      setValidationError(
+        `Please select at least one event for ${
+          form.guests[guestWithNoEvent].name?.trim() || `Guest ${guestWithNoEvent + 1}`
+        }.`
+      );
+      return;
+    }
+    setValidationError("");
     setSubmitState("submitting");
 
     try {
@@ -422,6 +439,14 @@ export default function RSVPSection() {
 
               {/* Submit */}
               <div className="text-center">
+                {validationError && (
+                  <p
+                    className="mb-4 text-sm"
+                    style={{ color: "#E88", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
+                  >
+                    {validationError}
+                  </p>
+                )}
                 <motion.button
                   type="submit"
                   disabled={submitState === "submitting"}
