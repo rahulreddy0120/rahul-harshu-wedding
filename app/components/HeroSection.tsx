@@ -149,6 +149,19 @@ export default function HeroSection() {
             >
               Harshini Reddy Salla
             </h1>
+            <p
+              className="gold-text"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(0.85rem, 2.4vw, 1.1rem)",
+                fontStyle: "italic",
+                fontWeight: 300,
+                letterSpacing: "0.04em",
+                marginTop: "0.5rem",
+              }}
+            >
+              Daughter of Jeevan Reddy Salla &amp; Padma
+            </p>
             <div className="my-2 text-4xl" style={{ color: "#C9A84C" }}>♾</div>
             <h1
               className="gold-text leading-none"
@@ -161,6 +174,19 @@ export default function HeroSection() {
             >
               Rahul Reddy Velpur
             </h1>
+            <p
+              className="gold-text"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(0.85rem, 2.4vw, 1.1rem)",
+                fontStyle: "italic",
+                fontWeight: 300,
+                letterSpacing: "0.04em",
+                marginTop: "0.5rem",
+              }}
+            >
+              Son of Ravindhar Reddy Velpur &amp; Sathemma
+            </p>
           </motion.div>
         )}
 
