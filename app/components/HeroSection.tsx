@@ -174,6 +174,18 @@ export default function HeroSection() {
             <p
               className="mt-8 italic"
               style={{
+                color: "#C9A84C",
+                fontSize: "clamp(1rem, 3vw, 1.4rem)",
+                fontFamily: "'Cormorant Garamond', serif",
+                fontWeight: 300,
+                letterSpacing: "0.06em",
+              }}
+            >
+              Our forever (Noah Salla) has four paws. 🐾🐶
+            </p>
+            <p
+              className="mt-3 italic"
+              style={{
                 color: "#E8D5A3",
                 fontSize: "clamp(1rem, 3vw, 1.5rem)",
                 fontFamily: "'Cormorant Garamond', serif",

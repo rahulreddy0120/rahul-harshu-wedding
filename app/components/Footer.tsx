@@ -109,12 +109,6 @@ export default function Footer() {
           >
             Two hearts, one forever — and Noah, our little pawprint on it all. 🐶
           </p>
-          <p
-            className="mt-2 italic"
-            style={{ color: "rgba(201,168,76,0.5)", fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
-          >
-            Our forever (Noah Salla) has four paws. 🐾🐶
-          </p>
         </motion.div>
 
         {/* Quick links */}
