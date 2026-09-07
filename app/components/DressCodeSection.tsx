@@ -33,15 +33,19 @@ const dressCodes = [
     tip: "Engagement — noon, Friday Nov 13. Wedding — noon, Sunday Nov 15. The couple's palette is ivory & gold, so complementary tones (blush, sage, royal blue) are perfect.",
   },
   {
-    event: "🤚 Mehendi",
+    event: "🤚🪔 Mehendi & Pre-Wedding",
     theme: "Vibrant & Festive",
-    instruction: "Semi-formal Indian wear. Salwar kameez, lehenga, kurta. Western semi-formal also welcome.",
+    instruction: "Semi-formal to traditional Indian wear. Salwar kameez, lehenga, kurta, sherwani. Western semi-formal also welcome.",
     colors: [
       { name: "Sunny Yellow", hex: "#FDD835" },
       { name: "Deep Orange", hex: "#E65100" },
+      { name: "Peacock Blue", hex: "#0F6E8C" },
+      { name: "Mustard Gold", hex: "#C99A2E" },
+      { name: "Teal", hex: "#0D9488" },
+      { name: "Coral", hex: "#FF6F5E" },
     ],
     avoid: "Heavy bridal colours (red, maroon), and pink or parrot green (reserved for the bride)",
-    tip: "Friday night Nov 13 — comfortable flats recommended, lots of dancing!",
+    tip: "Mehendi — Friday evening Nov 13. Pre-Wedding (Pellikuthuru & Pellikoduku) — Saturday evening Nov 14. Comfortable flats recommended, lots of dancing!",
   },
   {
     event: "☀️ Haldi",
