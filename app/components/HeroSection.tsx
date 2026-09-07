@@ -142,49 +142,25 @@ export default function HeroSection() {
               className="gold-text leading-none"
               style={{
                 fontFamily: "'Cinzel', serif",
-                fontSize: "clamp(3rem, 10vw, 7rem)",
+                fontSize: "clamp(2.1rem, 7.5vw, 5rem)",
                 fontWeight: 500,
-                letterSpacing: "0.05em",
+                letterSpacing: "0.04em",
               }}
             >
-              Harshini Reddy
+              Harshini Reddy Salla
             </h1>
-            <p
-              className="gold-text"
-              style={{
-                fontFamily: "'Cinzel', serif",
-                fontSize: "clamp(1.1rem, 3.5vw, 2rem)",
-                fontWeight: 500,
-                letterSpacing: "0.14em",
-                marginTop: "0.25rem",
-              }}
-            >
-              Salla
-            </p>
             <div className="my-2 text-4xl" style={{ color: "#C9A84C" }}>♾</div>
             <h1
               className="gold-text leading-none"
               style={{
                 fontFamily: "'Cinzel', serif",
-                fontSize: "clamp(3rem, 10vw, 7rem)",
+                fontSize: "clamp(2.1rem, 7.5vw, 5rem)",
                 fontWeight: 500,
-                letterSpacing: "0.05em",
+                letterSpacing: "0.04em",
               }}
             >
-              Rahul Reddy
+              Rahul Reddy Velpur
             </h1>
-            <p
-              className="gold-text"
-              style={{
-                fontFamily: "'Cinzel', serif",
-                fontSize: "clamp(1.1rem, 3.5vw, 2rem)",
-                fontWeight: 500,
-                letterSpacing: "0.14em",
-                marginTop: "0.25rem",
-              }}
-            >
-              Velpur
-            </p>
           </motion.div>
         )}
 
