@@ -113,22 +113,6 @@ export default function CountdownSection() {
           THE CELEBRATION BEGINS IN
         </motion.p>
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="gold-text mb-12"
-          style={{
-            fontFamily: "'Cinzel', serif",
-            fontSize: "clamp(1.1rem, 3vw, 1.8rem)",
-            fontWeight: 400,
-            letterSpacing: "0.08em",
-          }}
-        >
-          శుభమస్తు · SHUBHAMASTU · ఓం నమో వేంకటేశాయ · SHUBHAMASTU · శుభమస్తు
-        </motion.h2>
-
         <div className="flex items-center justify-center gap-4 md:gap-8 flex-wrap">
           <CountUnit value={timeLeft.days} label="DAYS" />
 
