@@ -5,14 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Real photos live in /public/gallery.
 const galleryItems = [
-  { id: 1, alt: "Harshini & Rahul with Noah", src: "/gallery/couple-noah-1.jpg", placeholder: false, aspect: "portrait" },
+  { id: 1, alt: "Harshini & Rahul with Noah", src: "/gallery/couple-noah-1-new.jpg", placeholder: false, aspect: "portrait" },
   { id: 2, alt: "Harshini & Rahul relaxing with Noah", src: "/gallery/couple-noah-2.jpg", placeholder: false, aspect: "landscape" },
   { id: 3, alt: "Harshini & Rahul at the Grand Canyon", src: "/gallery/couple-grandcanyon.jpg", placeholder: false, aspect: "portrait" },
   { id: 4, alt: "Harshini & Rahul — Halloween pumpkins", src: "/gallery/couple-halloween.jpg", placeholder: false, aspect: "portrait" },
-  { id: 5, alt: "Harshini & Rahul smiling with Noah", src: "/gallery/couple-noah-3.jpg", placeholder: false, aspect: "landscape" },
+  { id: 5, alt: "Harshini & Rahul lounging with Noah", src: "/gallery/couple-noah-5.jpg", placeholder: false, aspect: "landscape" },
   { id: 6, alt: "Harshini & Rahul holding Noah outdoors", src: "/gallery/couple-noah-4.jpg", placeholder: false, aspect: "portrait" },
-  { id: 7, alt: "Harshini & Rahul lounging with Noah", src: "/gallery/couple-noah-5.jpg", placeholder: false, aspect: "landscape" },
-  { id: 8, alt: "Harshini & Rahul laughing with Noah", src: "/gallery/couple-noah-6.jpg", placeholder: false, aspect: "landscape" },
+  { id: 7, alt: "Harshini & Rahul laughing with Noah", src: "/gallery/couple-noah-6.jpg", placeholder: false, aspect: "landscape" },
 ];
 
 const gradients = [
