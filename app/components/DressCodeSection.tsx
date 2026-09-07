@@ -56,7 +56,7 @@ const dressCodes = [
       { name: "Cream", hex: "#FFF8E1" },
       { name: "White", hex: "#FFFFFF" },
     ],
-    avoid: "Dark colours (they stain more visibly)",
+    avoid: "Orange and peach shades (reserved for the bride & groom)",
     tip: "Saturday noon Nov 14 — wear clothes you're okay ruining, turmeric is forever!",
   },
 ];
