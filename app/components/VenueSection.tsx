@@ -11,11 +11,11 @@ const venues = [
     note: "Join us for a night of music and dance at The Venue at Waterstone.",
   },
   {
-    event: "Mehendi & Haldi & Engagement",
+    event: "Mehendi & Haldi & Engagement & Pre-Wedding",
     name: "Our Home",
     address: "3333 Lakestriker Road, Celina, TX 75009",
     mapQuery: "3333+Lakestriker+Road,+Celina,+TX+75009",
-    note: "These three celebrations will be held at our home. We can't wait to host you.",
+    note: "These four celebrations will be held at our home. We can't wait to host you.",
   },
   {
     event: "Wedding Ceremony",
