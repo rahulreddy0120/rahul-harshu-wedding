@@ -159,6 +159,7 @@ def submit_rsvp(event: dict) -> dict:
             "engagement": sum(1 for g in guests if g.get("engagement")),
             "mehendi": sum(1 for g in guests if g.get("mehendi")),
             "haldi": sum(1 for g in guests if g.get("haldi")),
+            "prewedding": sum(1 for g in guests if g.get("prewedding")),
             "wedding": sum(1 for g in guests if g.get("wedding")),
         }
     }
@@ -229,6 +230,7 @@ def list_rsvps(event: dict) -> dict:
             "engagement": sum(int(r.get("events", {}).get("engagement", 0)) for r in items),
             "mehendi": sum(int(r.get("events", {}).get("mehendi", 0)) for r in items),
             "haldi": sum(int(r.get("events", {}).get("haldi", 0)) for r in items),
+            "prewedding": sum(int(r.get("events", {}).get("prewedding", 0)) for r in items),
             "wedding": sum(int(r.get("events", {}).get("wedding", 0)) for r in items),
         },
         "rsvps": items,
@@ -239,7 +241,7 @@ def list_rsvps(event: dict) -> dict:
 def send_confirmation_email(record: dict):
     guests_list = "\n".join(
         f"  • {g.get('name', 'Guest')} — " +
-        ", ".join(ev.title() for ev in ["sangeeth", "engagement", "mehendi", "haldi", "wedding"] if g.get(ev))
+        ", ".join(("Pre-Wedding" if ev == "prewedding" else ev.title()) for ev in ["sangeeth", "engagement", "mehendi", "haldi", "prewedding", "wedding"] if g.get(ev))
         for g in record["guests"]
     )
 
@@ -273,7 +275,7 @@ def send_confirmation_email(record: dict):
 
   <div class="events">
     <p class="detail" style="margin-bottom:12px;">Your RSVP — {record['guestCount']} guest(s)</p>
-    {''.join(f'<p style="color:#E8D5A3; margin:4px 0;">◆ {g.get("name","Guest")} — ' + ', '.join(ev.title() for ev in ["sangeeth","engagement","mehendi","haldi","wedding"] if g.get(ev)) + '</p>' for g in record['guests'])}
+    {''.join(f'<p style="color:#E8D5A3; margin:4px 0;">◆ {g.get("name","Guest")} — ' + ', '.join(("Pre-Wedding" if ev == "prewedding" else ev.title()) for ev in ["sangeeth","engagement","mehendi","haldi","prewedding","wedding"] if g.get(ev)) + '</p>' for g in record['guests'])}
   </div>
 
   {'<p><span class="detail">Dietary:</span> <span style="color:#E8D5A3;">' + record["dietary"] + '</span></p>' if record.get("dietary") else ""}

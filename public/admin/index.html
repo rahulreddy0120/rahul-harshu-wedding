@@ -118,7 +118,9 @@
 <script>
   const API = "/api";
   const TOKEN_KEY = "hr_admin_token";
-  const EVENTS = ["sangeeth", "engagement", "mehendi", "haldi", "wedding"];
+  const EVENTS = ["sangeeth", "engagement", "mehendi", "haldi", "prewedding", "wedding"];
+  const EVENT_LABEL = { sangeeth: "Sangeeth", engagement: "Engagement", mehendi: "Mehendi", haldi: "Haldi", prewedding: "Pre-Wedding", wedding: "Wedding" };
+  const evLabel = (e) => EVENT_LABEL[e] || e;
 
   const $ = (id) => document.getElementById(id);
   const loginView = $("loginView"), dashView = $("dashView");
@@ -179,6 +181,7 @@
       ["Engagement", be.engagement || 0],
       ["Mehendi", be.mehendi || 0],
       ["Haldi", be.haldi || 0],
+      ["Pre-Wedding", be.prewedding || 0],
       ["Wedding", be.wedding || 0],
     ];
     $("stats").innerHTML = cards.map(([lbl, num]) =>
@@ -201,7 +204,7 @@
     const sorted = [...rsvps].sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
     body.innerHTML = sorted.map((r) => {
       const guests = (r.guests || []).map((g) => {
-        const evs = EVENTS.filter((e) => g[e]).map((e) => `<span class="chip">${e}</span>`).join("");
+        const evs = EVENTS.filter((e) => g[e]).map((e) => `<span class="chip">${evLabel(e)}</span>`).join("");
         return `<div style="margin-bottom:6px;">◆ ${esc(g.name || "Guest")}<div class="chips" style="margin-top:3px;">${evs}</div></div>`;
       }).join("");
       const extras = [
@@ -214,7 +217,7 @@
         <td><strong style="color:var(--gold)">${esc(r.primaryName)}</strong><div><small>${r.guestCount || 0} guest(s)</small></div></td>
         <td>${esc(r.email)}<div><small>${esc(r.phone || "")}</small></div></td>
         <td>${guests}</td>
-        <td>${EVENTS.filter((e) => (r.events || {})[e]).map((e) => `<span class="chip">${e} ${(r.events||{})[e]}</span>`).join(" ")}</td>
+        <td>${EVENTS.filter((e) => (r.events || {})[e]).map((e) => `<span class="chip">${evLabel(e)} ${(r.events||{})[e]}</span>`).join(" ")}</td>
         <td>${extras}</td>
         <td>${esc(when)}</td>
       </tr>`;
@@ -223,13 +226,13 @@
 
   function exportCsv() {
     if (!currentData || !currentData.rsvps) return;
-    const rows = [["Primary Name", "Email", "Phone", "Guest Count", "Guests", "Sangeeth", "Engagement", "Mehendi", "Haldi", "Wedding", "Dietary", "Song Request", "Message", "Submitted At"]];
+    const rows = [["Primary Name", "Email", "Phone", "Guest Count", "Guests", "Sangeeth", "Engagement", "Mehendi", "Haldi", "Pre-Wedding", "Wedding", "Dietary", "Song Request", "Message", "Submitted At"]];
     currentData.rsvps.forEach((r) => {
       const ev = r.events || {};
       rows.push([
         r.primaryName || "", r.email || "", r.phone || "", r.guestCount || 0,
         (r.guests || []).map((g) => g.name).join("; "),
-        ev.sangeeth || 0, ev.engagement || 0, ev.mehendi || 0, ev.haldi || 0, ev.wedding || 0,
+        ev.sangeeth || 0, ev.engagement || 0, ev.mehendi || 0, ev.haldi || 0, ev.prewedding || 0, ev.wedding || 0,
         r.dietary || "", r.songRequest || "", (r.message || "").replace(/\n/g, " "), r.submittedAt || "",
       ]);
     });
