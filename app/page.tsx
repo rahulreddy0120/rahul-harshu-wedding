@@ -8,6 +8,7 @@ import EventsSection from "./components/EventsSection";
 import DressCodeSection from "./components/DressCodeSection";
 import RSVPSection from "./components/RSVPSection";
 import GallerySection from "./components/GallerySection";
+import RegistrySection from "./components/RegistrySection";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <DressCodeSection />
       <RSVPSection />
       <GallerySection />
+      <RegistrySection />
       <Footer />
     </main>
   );
