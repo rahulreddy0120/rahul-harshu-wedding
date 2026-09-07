@@ -138,7 +138,7 @@ export default function CountdownSection() {
           style={{
             color: "#C9A84C",
             fontFamily: "'Cinzel', serif",
-            fontSize: "clamp(1rem, 3vw, 1.4rem)",
+            fontSize: "clamp(1.4rem, 4vw, 2.2rem)",
             fontWeight: 400,
           }}
         >
@@ -158,11 +158,12 @@ export default function CountdownSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "0px 0px 200px 0px" }}
           transition={{ delay: 0.6 }}
-          className="mt-6 italic text-lg"
+          className="mt-6 italic"
           style={{
             color: "#E8D5A3",
             fontFamily: "'Cormorant Garamond', serif",
             fontWeight: 300,
+            fontSize: "clamp(1.25rem, 3.5vw, 1.75rem)",
           }}
         >
           Save the date and join us in Texas
