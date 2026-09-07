@@ -122,7 +122,6 @@ export default function Footer() {
           {[
             { label: "Events", href: "#events" },
             { label: "RSVP", href: "#rsvp" },
-            { label: "Venue", href: "#venue" },
             { label: "Gallery", href: "#gallery" },
           ].map((link) => (
             <a
