@@ -107,8 +107,8 @@ export default function CountdownSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "0px 0px 200px 0px" }}
-          className="tracking-[0.3em] text-xs mb-4"
-          style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300 }}
+          className="tracking-[0.3em] mb-4"
+          style={{ color: "#C9A84C", fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: "clamp(0.9rem, 2.5vw, 1.4rem)" }}
         >
           THE CELEBRATION BEGINS IN
         </motion.p>
