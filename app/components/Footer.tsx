@@ -79,7 +79,7 @@ export default function Footer() {
         >
           See You
           <br />
-          in Texas
+          in Dallas
         </motion.h2>
 
         <motion.div

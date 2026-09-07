@@ -145,6 +145,22 @@ export default function CountdownSection() {
           <CountUnit value={timeLeft.seconds} label="SECONDS" />
         </div>
 
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "0px 0px 200px 0px" }}
+          transition={{ delay: 0.3 }}
+          className="mt-8 tracking-[0.15em]"
+          style={{
+            color: "#C9A84C",
+            fontFamily: "'Cinzel', serif",
+            fontSize: "clamp(1rem, 3vw, 1.4rem)",
+            fontWeight: 400,
+          }}
+        >
+          November 12–15, 2026
+        </motion.p>
+
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
