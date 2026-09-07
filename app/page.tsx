@@ -4,7 +4,6 @@ import HeroSection from "./components/HeroSection";
 import CountdownSection from "./components/CountdownSection";
 import EventsSection from "./components/EventsSection";
 import VenueSection from "./components/VenueSection";
-import TravelSection from "./components/TravelSection";
 import DressCodeSection from "./components/DressCodeSection";
 import RSVPSection from "./components/RSVPSection";
 import GallerySection from "./components/GallerySection";
@@ -19,7 +18,6 @@ export default function Home() {
       <CountdownSection />
       <EventsSection />
       <VenueSection />
-      <TravelSection />
       <DressCodeSection />
       <RSVPSection />
       <GallerySection />
