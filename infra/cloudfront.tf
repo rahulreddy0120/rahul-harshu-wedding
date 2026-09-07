@@ -72,6 +72,15 @@ resource "aws_cloudfront_cache_policy" "static" {
   }
 }
 
+# ─── CloudFront Function: directory index rewrite ────────────────────────────
+resource "aws_cloudfront_function" "rewrite" {
+  name    = "${local.project}-dir-index-rewrite"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite directory paths (e.g. /admin) to /index.html"
+  publish = true
+  code    = file("${path.module}/cf-rewrite.js")
+}
+
 # ─── CloudFront Distribution ──────────────────────────────────────────────────
 
 resource "aws_cloudfront_distribution" "site" {
@@ -116,6 +125,11 @@ resource "aws_cloudfront_distribution" "site" {
     cached_methods         = ["GET", "HEAD"]
     cache_policy_id        = aws_cloudfront_cache_policy.static.id
     compress               = true
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.rewrite.arn
+    }
   }
 
   # /media/* → S3 media bucket

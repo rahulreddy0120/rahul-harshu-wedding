@@ -138,6 +138,18 @@ export default function Footer() {
               {link.label.toUpperCase()}
             </a>
           ))}
+          <a
+            href="/admin/"
+            className="text-xs tracking-[0.2em] transition-opacity duration-200 hover:opacity-100"
+            style={{
+              color: "rgba(201,168,76,0.4)",
+              fontFamily: "'Lato', sans-serif",
+              fontWeight: 300,
+              textDecoration: "none",
+            }}
+          >
+            HOST LOGIN
+          </a>
         </motion.div>
 
         {/* Bottom note */}
