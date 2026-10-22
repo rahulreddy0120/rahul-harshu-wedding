@@ -32,3 +32,20 @@ output "lambda_function_url" {
   description = "Direct Lambda function URL (alternative to API Gateway)"
   value       = aws_lambda_function_url.rsvp.function_url
 }
+
+# ─── Wedding-only RSVP distribution ──────────────────────────────────────────
+
+output "wedding_cloudfront_url" {
+  description = "Wedding-only RSVP URL (separate CloudFront distribution)"
+  value       = "https://${aws_cloudfront_distribution.wedding.domain_name}"
+}
+
+output "wedding_cloudfront_distribution_id" {
+  description = "Wedding-only CloudFront distribution ID (for cache invalidation)"
+  value       = aws_cloudfront_distribution.wedding.id
+}
+
+output "wedding_site_bucket" {
+  description = "S3 bucket for the wedding-only RSVP page"
+  value       = aws_s3_bucket.wedding.bucket
+}

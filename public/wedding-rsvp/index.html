@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Wedding RSVP · Harshini &amp; Rahul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Lato:wght@300;400&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  :root {
+    --bg: #0A0A0A; --bg2: #0F0800; --gold: #C9A84C; --cream: #FAF6EE;
+    --cream2: #E8D5A3; --line: rgba(201,168,76,0.25); --soft: rgba(201,168,76,0.05);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    color: var(--cream); font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .dots {
+    position: fixed; inset: 0; opacity: .03; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(circle, var(--gold) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .wrap { position: relative; z-index: 1; max-width: 48rem; margin: 0 auto; padding: 4rem 1.5rem; }
+
+  /* Header */
+  header { text-align: center; margin-bottom: 3rem; }
+  header .detail {
+    color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 300;
+    font-size: .72rem; letter-spacing: .3em; text-transform: uppercase; margin: 0 0 1rem;
+  }
+  header h1 {
+    color: var(--gold); font-family: 'Cinzel', serif; font-weight: 400;
+    letter-spacing: .08em; font-size: clamp(2rem, 5vw, 3.5rem); margin: 0;
+  }
+  .divider { width: 120px; height: 1px; margin: 1.5rem auto; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  header .sub { color: var(--cream2); font-style: italic; font-size: 1.15rem; font-weight: 300; margin: 0; }
+  header .sub2 { color: var(--gold); font-style: italic; font-size: 1.05rem; font-weight: 300; margin: 1rem 0 0; }
+
+  /* Panels */
+  .panel { border: 1px solid rgba(201,168,76,0.2); background: var(--soft); padding: 1.5rem; margin-bottom: 2rem; }
+  .panel > .section-label {
+    color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 300;
+    font-size: .7rem; letter-spacing: .25em; text-transform: uppercase; margin: 0 0 1.5rem;
+  }
+  .grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 640px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+
+  label.fld {
+    color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 300;
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; display: block; margin-bottom: .5rem;
+  }
+  input[type=text], input[type=email], input[type=tel], textarea {
+    width: 100%; padding: .75rem 1rem; background: rgba(201,168,76,0.05);
+    border: 1px solid var(--line); color: var(--cream);
+    font-family: 'Cormorant Garamond', serif; font-size: 1rem; outline: none;
+    transition: border-color .2s;
+  }
+  input:focus, textarea:focus { border-color: var(--gold); }
+  textarea { resize: vertical; }
+
+  /* Counters */
+  .counter {
+    display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+    padding: .75rem; border: 1px solid rgba(201,168,76,0.2); background: var(--soft);
+  }
+  .counter .lbl {
+    color: var(--gold); font-family: 'Lato', sans-serif; font-weight: 300;
+    font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .counter .ctrl { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+  .counter button {
+    width: 2rem; height: 2rem; line-height: 1; flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
+    background: transparent; cursor: pointer; font-size: 1.1rem; padding: 0;
+  }
+  .counter .val {
+    color: var(--cream); font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; min-width: 1.4rem; text-align: center;
+  }
+  .hint { color: rgba(201,168,76,0.55); font-family: 'Lato', sans-serif; font-weight: 300; font-size: .62rem; letter-spacing: .05em; margin: .5rem 0 0; }
+
+  /* Submit */
+  .submit-wrap { text-align: center; }
+  button.send {
+    padding: 1rem 3rem; background: var(--gold); color: #0A0A0A;
+    font-family: 'Lato', sans-serif; font-weight: 400; font-size: .85rem;
+    letter-spacing: .25em; text-transform: uppercase; border: none; cursor: pointer;
+    transition: transform .2s, opacity .2s;
+  }
+  button.send:hover { transform: scale(1.03); }
+  button.send:disabled { background: rgba(201,168,76,0.3); cursor: wait; }
+  .err { color: #E88; font-family: 'Lato', sans-serif; font-weight: 300; font-size: .9rem; margin: 0 0 1rem; }
+  .net-err { color: #E57373; font-family: 'Cormorant Garamond', serif; margin-top: 1rem; }
+
+  /* Success */
+  .success { text-align: center; padding: 5rem 2rem; border: 1px solid var(--gold); background: var(--soft); }
+  .success .em { font-size: 3rem; margin-bottom: 1.5rem; }
+  .success h2 { color: var(--gold); font-family: 'Cinzel', serif; font-weight: 400; font-size: 1.8rem; margin: 0 0 1rem; }
+  .success p { color: var(--cream2); font-style: italic; font-size: 1.15rem; margin: 0; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="dots"></div>
+
+<div class="wrap">
+  <header>
+    <p class="detail">శుభమస్తు · You are invited to</p>
+    <h1>The Wedding</h1>
+    <div class="divider"></div>
+    <p class="sub">Harshini ♾ Rahul · November 2026 · Texas</p>
+    <p class="sub2">Please RSVP by October 1, 2026</p>
+  </header>
+
+  <!-- FORM VIEW -->
+  <form id="rsvpForm">
+    <!-- Contact -->
+    <div class="panel">
+      <p class="section-label">Your Contact Details</p>
+      <div class="grid two">
+        <div>
+          <label class="fld">Primary Guest Name *</label>
+          <input id="primaryName" type="text" placeholder="e.g. Ravi &amp; Family" required />
+        </div>
+        <div>
+          <label class="fld">Email *</label>
+          <input id="email" type="email" placeholder="your@email.com" required />
+        </div>
+        <div>
+          <label class="fld">Phone (optional)</label>
+          <input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Head count -->
+    <div class="panel">
+      <p class="section-label">How many are joining for the Wedding?</p>
+      <div class="grid two">
+        <div class="counter">
+          <span class="lbl">Adults (incl. you)</span>
+          <div class="ctrl">
+            <button type="button" id="adultsMinus" aria-label="Decrease adults">−</button>
+            <span class="val" id="adultsVal">1</span>
+            <button type="button" id="adultsPlus" aria-label="Increase adults">+</button>
+          </div>
+        </div>
+        <div class="counter">
+          <span class="lbl">Kids</span>
+          <div class="ctrl">
+            <button type="button" id="kidsMinus" aria-label="Decrease kids">−</button>
+            <span class="val" id="kidsVal">0</span>
+            <button type="button" id="kidsPlus" aria-label="Increase kids">+</button>
+          </div>
+        </div>
+      </div>
+      <p class="hint">Count yourself in the adults total.</p>
+    </div>
+
+    <!-- Extras -->
+    <div class="panel">
+      <p class="section-label">A Few More Things</p>
+      <div class="grid">
+        <div>
+          <label class="fld">Dietary Requirements</label>
+          <input id="dietary" type="text" placeholder="e.g. Vegetarian, Vegan, Nut allergy, Jain food..." />
+        </div>
+        <div>
+          <label class="fld">💌 Message for the Couple (optional)</label>
+          <textarea id="message" rows="4" placeholder="Share a wish, memory, or message..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <p class="err hidden" id="validationErr"></p>
+      <button class="send" id="sendBtn" type="submit">Send RSVP ♾</button>
+      <p class="net-err hidden" id="netErr">Something went wrong. Please try again or email us directly.</p>
+    </div>
+  </form>
+
+  <!-- SUCCESS VIEW -->
+  <div class="success hidden" id="successView">
+    <div class="em">🎊</div>
+    <h2>We Can't Wait to See You!</h2>
+    <p>Your RSVP has been received. We'll send a confirmation to your email soon.</p>
+  </div>
+</div>
+
+<script>
+  // Relative path -> CloudFront proxies /api/* to the same API Gateway + Lambda,
+  // so this RSVP lands in the SAME DynamoDB table the admin portal reads.
+  const API = "/api";
+
+  const $ = (id) => document.getElementById(id);
+
+  // --- Counters ---
+  const state = { adults: 1, kids: 0 };
+  function clamp(field, delta) {
+    const min = field === "adults" ? 1 : 0;
+    state[field] = Math.max(min, Math.min(20, state[field] + delta));
+    $(field + "Val").textContent = state[field];
+  }
+  $("adultsMinus").addEventListener("click", () => clamp("adults", -1));
+  $("adultsPlus").addEventListener("click", () => clamp("adults", 1));
+  $("kidsMinus").addEventListener("click", () => clamp("kids", -1));
+  $("kidsPlus").addEventListener("click", () => clamp("kids", 1));
+
+  // --- Submit ---
+  $("rsvpForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = $("sendBtn");
+    const vErr = $("validationErr");
+    const nErr = $("netErr");
+    vErr.classList.add("hidden");
+    nErr.classList.add("hidden");
+
+    const primaryName = $("primaryName").value.trim();
+    const email = $("email").value.trim();
+    if (!primaryName || !email) {
+      vErr.textContent = "Please enter your name and email.";
+      vErr.classList.remove("hidden");
+      return;
+    }
+
+    // Single guest party, WEDDING EVENT ONLY. Shape matches the main RSVP form
+    // so the Lambda tallies this under events.wedding in the shared table.
+    const payload = {
+      primaryName: primaryName,
+      email: email,
+      phone: $("phone").value.trim(),
+      guests: [{
+        adults: state.adults,
+        kids: state.kids,
+        sangeeth: false,
+        engagement: false,
+        mehendi: false,
+        haldi: false,
+        prewedding: false,
+        wedding: true,
+      }],
+      dietary: $("dietary").value.trim(),
+      songRequest: "",
+      message: $("message").value.trim(),
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+    try {
+      const res = await fetch(API + "/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        $("rsvpForm").classList.add("hidden");
+        $("successView").classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        console.error("RSVP error:", data);
+        nErr.classList.remove("hidden");
+      }
+    } catch (err) {
+      console.error("RSVP fetch error:", err);
+      nErr.classList.remove("hidden");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Send RSVP ♾";
+    }
+  });
+</script>
+</body>
+</html>
