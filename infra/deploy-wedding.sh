@@ -11,9 +11,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 AWS_PROFILE="${AWS_PROFILE:-wedding}"
 
-SRC_PAGE="$PROJECT_DIR/public/wedding-rsvp/index.html"
-if [ ! -f "$SRC_PAGE" ]; then
-  echo "❌ Source page not found: $SRC_PAGE"
+SRC_DIR="$PROJECT_DIR/public/wedding-rsvp"
+if [ ! -f "$SRC_DIR/index.html" ]; then
+  echo "❌ Source page not found: $SRC_DIR/index.html"
   exit 1
 fi
 
@@ -25,8 +25,16 @@ WEDDING_CF_ID=$(terraform output -raw wedding_cloudfront_distribution_id)
 echo "Wedding bucket:    $WEDDING_BUCKET"
 echo "Wedding CF ID:     $WEDDING_CF_ID"
 
-echo "🚀 Uploading wedding-only page to S3 (as root index.html)..."
-aws s3 cp "$SRC_PAGE" "s3://$WEDDING_BUCKET/index.html" \
+echo "🚀 Uploading wedding-only site (HTML + assets) to S3..."
+# Assets (images, etc.) — long cache
+aws s3 sync "$SRC_DIR/" "s3://$WEDDING_BUCKET/" \
+  --profile "$AWS_PROFILE" \
+  --delete \
+  --exclude "index.html" \
+  --cache-control "public, max-age=31536000, immutable"
+
+# index.html at bucket root — no cache so updates show immediately
+aws s3 cp "$SRC_DIR/index.html" "s3://$WEDDING_BUCKET/index.html" \
   --profile "$AWS_PROFILE" \
   --content-type "text/html" \
   --cache-control "public, max-age=0, must-revalidate"
