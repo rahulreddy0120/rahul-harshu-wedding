@@ -148,7 +148,7 @@ const events: Event[] = [
     name: "WEDDING",
     subtitle: "The Moment We Say 'I Do'",
     date: "Sunday, November 15, 2026",
-    time: "Noon",
+    time: "11:51 AM · Muhurtham",
     venue: "TBD, Texas",
     venueName: "Loco Lake Venue",
     venueAddress: "2585 US-287, Sunset, TX 76270",

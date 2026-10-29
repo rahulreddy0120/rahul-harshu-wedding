@@ -17,7 +17,6 @@ s3 = boto3.client("s3")
 import hashlib
 import hmac
 import base64
-import re
 import time
 
 RSVP_TABLE = os.environ["RSVP_TABLE"]
@@ -134,31 +133,26 @@ def _norm_email(value: str) -> str:
     return (value or "").strip().lower()
 
 
-def _norm_name(value: str) -> str:
-    """'  Ravi  &  Family ' -> 'ravi & family' (case, punctuation and spacing ignored)."""
-    cleaned = re.sub(r"[^a-z0-9& ]+", " ", (value or "").lower())
-    return " ".join(cleaned.split())
+def find_duplicate(email: str):
+    """Return the existing RSVP with the same email (case/whitespace-insensitive), else None.
 
-
-def find_duplicate(email: str, primary_name: str):
-    """Return ("email"|"name", existing_item) if an RSVP already matches, else None.
-
-    The table has no index on name, so this scans (key + 2 attributes only).
-    Fine at wedding scale (hundreds of rows); paginates past the 1 MB page limit.
+    Stored emails keep the guest's original casing, so the email-index GSI
+    (exact match) can miss "Ravi@x.com" vs "ravi@x.com". Scan instead, reading
+    only the key + email. Fine at wedding scale; paginates past 1 MB pages.
     """
-    want_email, want_name = _norm_email(email), _norm_name(primary_name)
+    want = _norm_email(email)
+    if not want:
+        return None
     table = dynamodb.Table(RSVP_TABLE)
     kwargs = {
-        "ProjectionExpression": "#i, #e, #n",
-        "ExpressionAttributeNames": {"#i": "rsvpId", "#e": "email", "#n": "primaryName"},
+        "ProjectionExpression": "#i, #e",
+        "ExpressionAttributeNames": {"#i": "rsvpId", "#e": "email"},
     }
     while True:
         page = table.scan(**kwargs)
         for item in page.get("Items", []):
-            if want_email and _norm_email(item.get("email")) == want_email:
-                return "email", item
-            if want_name and _norm_name(item.get("primaryName")) == want_name:
-                return "name", item
+            if _norm_email(item.get("email")) == want:
+                return item
         if "LastEvaluatedKey" not in page:
             return None
         kwargs["ExclusiveStartKey"] = page["LastEvaluatedKey"]
@@ -180,16 +174,14 @@ def submit_rsvp(event: dict) -> dict:
     if not guests:
         return respond(400, {"error": "At least one guest is required"})
 
-    # Reject duplicates: same email (case-insensitive) or same name (case/spacing-insensitive)
-    dup = find_duplicate(email, primary_name)
+    # Reject duplicates: same email address (case/whitespace-insensitive)
+    dup = find_duplicate(email)
     if dup:
-        field, existing = dup
-        print(f"Duplicate RSVP blocked ({field}): new={primary_name!r}/{email!r} existing={existing.get('rsvpId')}")
-        what = "email address" if field == "email" else "name"
+        print(f"Duplicate RSVP blocked (email): new={primary_name!r}/{email!r} existing={dup.get('rsvpId')}")
         return respond(409, {
             "error": "duplicate",
-            "duplicateOf": field,
-            "message": (f"We already have an RSVP under this {what}. "
+            "duplicateOf": "email",
+            "message": ("We already have an RSVP under this email address. "
                         "If you need to change it, please contact Harshini & Rahul directly."),
         })
 

@@ -107,7 +107,7 @@
     <h2>RSVP Dashboard</h2>
     <div class="actions">
       <button class="btn-ghost" id="refreshBtn" type="button">Refresh</button>
-      <button class="btn-ghost" id="dupBtn" type="button" title="Select every duplicate (same email or name) except the newest one">Select duplicates</button>
+      <button class="btn-ghost" id="dupBtn" type="button" title="Select every duplicate (same email) except the newest one">Select duplicates</button>
       <button class="btn-danger" id="deleteSelBtn" type="button" disabled>Delete selected (0)</button>
       <button class="btn-ghost" id="csvBtn" type="button">Export CSV</button>
       <button id="logoutBtn" type="button">Log out</button>
@@ -225,27 +225,16 @@
   let olderDupKeys = new Set(); // duplicates except the newest one per email
 
   const normEmail = (s) => String(s || "").trim().toLowerCase();
-  const normName = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9& ]+/g, " ").split(/\s+/).filter(Boolean).join(" ");
 
-  // Rows sharing an email OR a name are one duplicate group (union-find, so
-  // A~B by email and B~C by name puts A, B, C together).
+  // Rows sharing an email (case/whitespace-insensitive) are one duplicate group.
   function computeDuplicates(sorted) {
     dupKeys = new Set(); olderDupKeys = new Set();
-    const parent = sorted.map((_, i) => i);
-    const find = (i) => (parent[i] === i ? i : (parent[i] = find(parent[i])));
-    const firstBy = new Map();
-    sorted.forEach((r, i) => {
-      [["e", normEmail(r.email)], ["n", normName(r.primaryName)]].forEach(([kind, v]) => {
-        if (!v) return;
-        const k = kind + ":" + v;
-        if (firstBy.has(k)) parent[find(i)] = find(firstBy.get(k)); else firstBy.set(k, i);
-      });
-    });
     const groups = new Map();
-    sorted.forEach((r, i) => {
-      const g = find(i);
-      if (!groups.has(g)) groups.set(g, []);
-      groups.get(g).push(r);                // sorted is newest first, so list[0] is newest
+    sorted.forEach((r) => {                 // sorted is newest first, so list[0] is newest
+      const email = normEmail(r.email);
+      if (!email) return;
+      if (!groups.has(email)) groups.set(email, []);
+      groups.get(email).push(r);
     });
     groups.forEach((list) => {
       if (list.length < 2) return;
@@ -298,7 +287,7 @@
         r.message ? `<div><small>Message:</small> ${esc(r.message)}</div>` : "",
       ].join("") || `<span style="opacity:.4">—</span>`;
       const when = r.submittedAt ? new Date(r.submittedAt).toLocaleString() : "—";
-      const dup = dupKeys.has(key) ? ` <span class="chip dup" title="Another RSVP has the same email or name">Duplicate</span>` : "";
+      const dup = dupKeys.has(key) ? ` <span class="chip dup" title="Another RSVP uses this email">Duplicate</span>` : "";
       return `<tr data-key="${esc(key)}">
         <td class="col-check"><input type="checkbox" class="row-check" aria-label="Select RSVP from ${esc(r.primaryName)}" /></td>
         <td><strong style="color:var(--gold)">${esc(r.primaryName)}</strong>${dup}<div><small>${r.guestCount || 0} guest(s)</small></div></td>

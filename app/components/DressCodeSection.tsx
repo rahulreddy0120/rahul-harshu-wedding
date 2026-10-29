@@ -29,7 +29,7 @@ const dressCodes = [
       { name: "Royal Blue", hex: "#1565C0" },
     ],
     avoid: "All-white, all-red, or Champagne Gold (reserved for the bride)",
-    tip: "Engagement — noon, Friday Nov 13. Wedding — noon, Sunday Nov 15. The couple's palette is ivory & gold, so complementary tones (blush, sage, royal blue) are perfect.",
+    tip: "Engagement — noon, Friday Nov 13. Wedding — 11:51 AM, Sunday Nov 15. The couple's palette is ivory & gold, so complementary tones (blush, sage, royal blue) are perfect.",
   },
   {
     event: "🤚🪔 Mehendi & Pre-Wedding",

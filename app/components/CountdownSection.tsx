@@ -72,8 +72,9 @@ function CountUnit({ value, label }: { value: number; label: string }) {
 }
 
 export default function CountdownSection() {
-  // Wedding date: November 15, 2026 — Noon
-  const weddingDate = new Date("2026-11-15T12:00:00");
+  // Wedding muhurtham: November 15, 2026 — 11:51 AM Central (CST, UTC-6).
+  // Explicit offset so guests in other time zones count down to the same moment.
+  const weddingDate = new Date("2026-11-15T11:51:00-06:00");
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(getTimeLeft(weddingDate));
   const [mounted, setMounted] = useState(false);
 
