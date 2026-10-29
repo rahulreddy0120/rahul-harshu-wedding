@@ -87,6 +87,13 @@ resource "aws_apigatewayv2_route" "rsvp_get" {
   target    = "integrations/${aws_apigatewayv2_integration.rsvp.id}"
 }
 
+# Host-only: delete selected RSVPs (auth enforced in the Lambda)
+resource "aws_apigatewayv2_route" "rsvp_delete" {
+  api_id    = aws_apigatewayv2_api.rsvp.id
+  route_key = "POST /api/rsvps/delete"
+  target    = "integrations/${aws_apigatewayv2_integration.rsvp.id}"
+}
+
 resource "aws_apigatewayv2_route" "health" {
   api_id    = aws_apigatewayv2_api.rsvp.id
   route_key = "GET /api/health"

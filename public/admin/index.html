@@ -63,6 +63,24 @@
   .tablewrap { overflow-x: auto; }
   .empty { text-align: center; padding: 40px; opacity: .6; }
   footer { text-align: center; margin-top: 40px; color: rgba(201,168,76,0.4); font-size: .78rem; }
+
+  /* Selection + delete */
+  .actions { flex-wrap: wrap; }
+  .btn-danger { background: transparent; color: #E88; border: 1px solid rgba(232,136,136,.55); }
+  .btn-danger:not(:disabled):hover { background: rgba(232,136,136,.12); opacity: 1; }
+  .col-check { width: 36px; text-align: center; }
+  .col-act { width: 80px; text-align: right; }
+  td.col-check, td.col-act { vertical-align: middle; }
+  input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
+  .row-del {
+    width: auto; margin: 0; padding: 6px 10px; font-size: .64rem; letter-spacing: .12em;
+    background: transparent; color: #E88; border: 1px solid rgba(232,136,136,.45);
+  }
+  .row-del:hover { background: rgba(232,136,136,.12); opacity: 1; }
+  tr.selected td { background: rgba(201,168,76,0.09); }
+  .chip.dup { color: #E8A06A; border-color: rgba(232,160,106,.6); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--panel); border: 1px solid var(--gold); color: var(--cream); padding: 10px 18px; font-size: .85rem; z-index: 10; }
 </style>
 </head>
 <body>
@@ -89,6 +107,8 @@
     <h2>RSVP Dashboard</h2>
     <div class="actions">
       <button class="btn-ghost" id="refreshBtn" type="button">Refresh</button>
+      <button class="btn-ghost" id="dupBtn" type="button" title="Select every duplicate (same email or name) except the newest one">Select duplicates</button>
+      <button class="btn-danger" id="deleteSelBtn" type="button" disabled>Delete selected (0)</button>
       <button class="btn-ghost" id="csvBtn" type="button">Export CSV</button>
       <button id="logoutBtn" type="button">Log out</button>
     </div>
@@ -100,12 +120,14 @@
     <table id="rsvpTable">
       <thead>
         <tr>
+          <th class="col-check"><input type="checkbox" id="selectAll" aria-label="Select all RSVPs" /></th>
           <th>Primary Guest</th>
           <th>Contact</th>
           <th>Party</th>
           <th>Events</th>
           <th>Dietary / Song / Message</th>
           <th>Submitted</th>
+          <th class="col-act"><span class="sr-only">Actions</span></th>
         </tr>
       </thead>
       <tbody id="rsvpBody"></tbody>
@@ -194,15 +216,76 @@
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
+  // ---- Selection + duplicates ----------------------------------------------
+  // A row is identified by its DynamoDB primary key (rsvpId + submittedAt).
+  const keyOf = (r) => `${r.rsvpId}|${r.submittedAt}`;
+  const selected = new Set();
+  let rowsByKey = new Map();
+  let dupKeys = new Set();      // every row that shares an email with another row
+  let olderDupKeys = new Set(); // duplicates except the newest one per email
+
+  const normEmail = (s) => String(s || "").trim().toLowerCase();
+  const normName = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9& ]+/g, " ").split(/\s+/).filter(Boolean).join(" ");
+
+  // Rows sharing an email OR a name are one duplicate group (union-find, so
+  // A~B by email and B~C by name puts A, B, C together).
+  function computeDuplicates(sorted) {
+    dupKeys = new Set(); olderDupKeys = new Set();
+    const parent = sorted.map((_, i) => i);
+    const find = (i) => (parent[i] === i ? i : (parent[i] = find(parent[i])));
+    const firstBy = new Map();
+    sorted.forEach((r, i) => {
+      [["e", normEmail(r.email)], ["n", normName(r.primaryName)]].forEach(([kind, v]) => {
+        if (!v) return;
+        const k = kind + ":" + v;
+        if (firstBy.has(k)) parent[find(i)] = find(firstBy.get(k)); else firstBy.set(k, i);
+      });
+    });
+    const groups = new Map();
+    sorted.forEach((r, i) => {
+      const g = find(i);
+      if (!groups.has(g)) groups.set(g, []);
+      groups.get(g).push(r);                // sorted is newest first, so list[0] is newest
+    });
+    groups.forEach((list) => {
+      if (list.length < 2) return;
+      list.forEach((r, i) => { dupKeys.add(keyOf(r)); if (i > 0) olderDupKeys.add(keyOf(r)); });
+    });
+  }
+
+  function syncSelectionUi() {
+    const n = selected.size;
+    const btn = $("deleteSelBtn");
+    btn.disabled = n === 0;
+    btn.textContent = `Delete selected (${n})`;
+    document.querySelectorAll("#rsvpBody tr[data-key]").forEach((tr) => {
+      const on = selected.has(tr.dataset.key);
+      tr.classList.toggle("selected", on);
+      const cb = tr.querySelector(".row-check");
+      if (cb) cb.checked = on;
+    });
+    const all = $("selectAll"), total = rowsByKey.size;
+    all.checked = total > 0 && n === total;
+    all.indeterminate = n > 0 && n < total;
+    $("dupBtn").disabled = olderDupKeys.size === 0;
+    $("dupBtn").textContent = olderDupKeys.size ? `Select duplicates (${olderDupKeys.size})` : "No duplicates";
+  }
+
   function renderTable(rsvps) {
     const body = $("rsvpBody");
-    if (!rsvps.length) {
-      body.innerHTML = `<tr><td colspan="6" class="empty">No RSVPs yet.</td></tr>`;
-      return;
-    }
     // newest first
     const sorted = [...rsvps].sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+    rowsByKey = new Map(sorted.map((r) => [keyOf(r), r]));
+    // drop selections for rows that no longer exist
+    [...selected].forEach((k) => { if (!rowsByKey.has(k)) selected.delete(k); });
+    computeDuplicates(sorted);
+    if (!sorted.length) {
+      body.innerHTML = `<tr><td colspan="8" class="empty">No RSVPs yet.</td></tr>`;
+      syncSelectionUi();
+      return;
+    }
     body.innerHTML = sorted.map((r) => {
+      const key = keyOf(r);
       const guests = (r.guests || []).map((g) => {
         const evs = EVENTS.filter((e) => g[e]).map((e) => `<span class="chip">${evLabel(e)}</span>`).join("");
         const kids = Number(g.kids || 0);
@@ -215,15 +298,85 @@
         r.message ? `<div><small>Message:</small> ${esc(r.message)}</div>` : "",
       ].join("") || `<span style="opacity:.4">—</span>`;
       const when = r.submittedAt ? new Date(r.submittedAt).toLocaleString() : "—";
-      return `<tr>
-        <td><strong style="color:var(--gold)">${esc(r.primaryName)}</strong><div><small>${r.guestCount || 0} guest(s)</small></div></td>
+      const dup = dupKeys.has(key) ? ` <span class="chip dup" title="Another RSVP has the same email or name">Duplicate</span>` : "";
+      return `<tr data-key="${esc(key)}">
+        <td class="col-check"><input type="checkbox" class="row-check" aria-label="Select RSVP from ${esc(r.primaryName)}" /></td>
+        <td><strong style="color:var(--gold)">${esc(r.primaryName)}</strong>${dup}<div><small>${r.guestCount || 0} guest(s)</small></div></td>
         <td>${esc(r.email)}<div><small>${esc(r.phone || "")}</small></div></td>
         <td>${guests}</td>
         <td>${EVENTS.filter((e) => (r.events || {})[e]).map((e) => `<span class="chip">${evLabel(e)} ${(r.events||{})[e]}</span>`).join(" ")}</td>
         <td>${extras}</td>
         <td>${esc(when)}</td>
+        <td class="col-act"><button type="button" class="row-del" aria-label="Delete RSVP from ${esc(r.primaryName)}">Delete</button></td>
       </tr>`;
     }).join("");
+    syncSelectionUi();
+  }
+
+  // Row checkbox + per-row delete (event delegation)
+  $("rsvpBody").addEventListener("change", (e) => {
+    if (!e.target.classList.contains("row-check")) return;
+    const key = e.target.closest("tr").dataset.key;
+    if (e.target.checked) selected.add(key); else selected.delete(key);
+    syncSelectionUi();
+  });
+  $("rsvpBody").addEventListener("click", (e) => {
+    const btn = e.target.closest(".row-del");
+    if (!btn) return;
+    deleteRsvps([btn.closest("tr").dataset.key]);
+  });
+  $("selectAll").addEventListener("change", (e) => {
+    selected.clear();
+    if (e.target.checked) rowsByKey.forEach((_, k) => selected.add(k));
+    syncSelectionUi();
+  });
+  $("dupBtn").addEventListener("click", () => {
+    selected.clear();
+    olderDupKeys.forEach((k) => selected.add(k));
+    syncSelectionUi();
+  });
+  $("deleteSelBtn").addEventListener("click", () => deleteRsvps([...selected]));
+
+  function toast(msg) {
+    const t = document.createElement("div");
+    t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+  }
+
+  async function deleteRsvps(keys) {
+    const rows = keys.map((k) => rowsByKey.get(k)).filter(Boolean);
+    if (!rows.length) return;
+    const names = rows.slice(0, 8).map((r) => `• ${r.primaryName} <${r.email}>`).join("\n")
+      + (rows.length > 8 ? `\n…and ${rows.length - 8} more` : "");
+    if (!confirm(`Permanently delete ${rows.length} RSVP(s)?\n\n${names}\n\nThis cannot be undone.`)) return;
+
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) { showLogin(); return; }
+    let deleted = 0;
+    try {
+      for (let i = 0; i < rows.length; i += 100) {   // API accepts up to 100 per call
+        const chunk = rows.slice(i, i + 100).map((r) => ({ rsvpId: r.rsvpId, submittedAt: r.submittedAt }));
+        const res = await fetch(API + "/rsvps/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+          body: JSON.stringify({ items: chunk }),
+        });
+        if (res.status === 401) {
+          localStorage.removeItem(TOKEN_KEY); showLogin();
+          $("loginErr").textContent = "Session expired. Please log in again.";
+          return;
+        }
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || `HTTP ${res.status}`);
+        deleted += data.deleted || 0;
+      }
+      keys.forEach((k) => selected.delete(k));
+      toast(`Deleted ${deleted} RSVP(s).`);
+    } catch (err) {
+      alert("Delete failed: " + err.message);
+    }
+    await loadDashboard();
   }
 
   function exportCsv() {

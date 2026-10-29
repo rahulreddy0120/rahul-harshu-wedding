@@ -4,11 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
-<title>Wedding Invitation · Rahul weds Harishini</title>
+<title>Wedding Invitation · Harshini Reddy Salla weds Rahul Reddy Velpur</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 <link
-  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel+Decorative:wght@400;700&family=Marcellus&family=Tiro+Devanagari+Sanskrit&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Marcellus&family=Tiro+Devanagari+Sanskrit&display=swap"
   rel="stylesheet"
 />
 <style>
@@ -96,14 +96,24 @@
     position: absolute; left: 7%; right: 7%; top: 14%; bottom: 9%;
     background: linear-gradient(180deg, #fffdf6, var(--paper));
     border: 1px solid rgba(184,134,11,.6); border-radius: 6px; z-index: 3;
-    transform: translateY(0); transition: transform 1s .35s cubic-bezier(.5,0,.1,1);
+    transform: translateY(0); transition: transform 1.2s .7s cubic-bezier(.4,0,.2,1), box-shadow 1.2s .7s;
     display: flex; align-items: center; justify-content: center; text-align: center;
     box-shadow: inset 0 0 0 4px rgba(122,46,46,.08);
   }
-  .envelope.open .letter-peek { transform: translateY(-60%); }
+  /* Letter slides fully out above the envelope and comes forward */
+  .envelope.open .env-body { overflow: visible; }
+  .envelope.open .letter-peek {
+    transform: translateY(-82%) scale(1.08); z-index: 7;
+    box-shadow: 0 24px 40px rgba(0,0,0,.45), inset 0 0 0 4px rgba(122,46,46,.08);
+  }
+  /* While opening: drop the envelope a little to make room, hide the slider */
+  .envelope { transition: transform .8s ease; }
+  .overlay.opening .envelope { transform: translateY(22%); }
+  .overlay.opening .slider,
+  .overlay.opening .intro-hint { opacity: 0; pointer-events: none; transition: opacity .4s ease; }
   .letter-peek .mini { padding: 0 1rem; }
   .letter-peek .mini img { width: 120px; opacity: .95; margin-bottom: .3rem; }
-  .letter-peek .mini h3 { font-family: 'Cinzel Decorative', serif; color: var(--maroon); font-size: 1.05rem; margin: .25rem 0; font-weight: 700; }
+  .letter-peek .mini h3 { font-family: 'Playfair Display', serif; color: var(--maroon); font-size: 1.05rem; margin: .25rem 0; font-weight: 700; }
   .letter-peek .mini p { color: var(--maroon-soft); font-style: italic; margin: 0; font-size: .88rem; }
 
   /* top flap */
@@ -165,7 +175,7 @@
   .card {
     position: relative; background: linear-gradient(170deg, var(--paper) 0%, var(--paper2) 100%);
     border: 2px solid var(--gold); border-radius: 4px;
-    box-shadow: 0 40px 80px rgba(0,0,0,.5); padding: 0 0 2.4rem; text-align: center; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,.5); padding: 0 0 4.5rem; text-align: center; overflow: hidden;
   }
   .card::after { content:""; position:absolute; inset:9px; border:1px solid rgba(122,46,46,.35); pointer-events:none; border-radius:3px; }
   .card-toran { width:100%; display:block; }
@@ -178,24 +188,32 @@
   .symbol-row .om { font-family: 'Tiro Devanagari Sanskrit', serif; font-size: 1.9rem; color: var(--gold); }
 
   .invite-eyebrow { font-family: 'Marcellus', serif; letter-spacing: .3em; font-size: .72rem; text-transform: uppercase; color: var(--maroon-soft); }
-  .invite-title { font-family: 'Cinzel Decorative', serif; font-weight: 700; color: var(--maroon); font-size: clamp(1.6rem, 5vw, 2.4rem); margin: .3rem 0 .1rem; }
-  .solicit { font-style: italic; color: var(--ink); font-size: 1.05rem; line-height: 1.7; max-width: 30rem; margin: 1rem auto; }
+  .invite-title { font-family: 'Playfair Display', serif; font-weight: 600; letter-spacing: .04em; color: var(--maroon); font-size: clamp(1.3rem, 3.8vw, 1.9rem); margin: .3rem 0 .1rem; }
+  .solicit { font-style: italic; color: var(--ink); font-size: .98rem; line-height: 1.7; max-width: 30rem; margin: 1rem auto; }
   .names { margin: 1.2rem 0; }
-  .names .g { font-family: 'Cinzel Decorative', serif; font-weight: 700; color: var(--maroon-deep); font-size: clamp(1.8rem, 6vw, 2.8rem); }
-  .names .weds { display: block; font-style: italic; color: var(--gold); font-size: 1.1rem; margin: .3rem 0; }
-  .detail-line { font-size: 1.1rem; color: var(--ink); margin: .3rem 0; }
+  .names .g { font-family: 'Playfair Display', serif; font-weight: 600; color: var(--maroon-deep); font-size: clamp(1.45rem, 4.6vw, 2.2rem); }
+  .names .weds { display: block; font-style: italic; color: var(--gold); font-size: 1rem; margin: .3rem 0; }
+  .detail-line { font-size: 1rem; color: var(--ink); margin: .3rem 0; }
   .detail-line strong { color: var(--maroon-deep); }
-  .venue { display: inline-block; margin-top: 1rem; padding: .5rem 1.4rem; border: 1.5px solid var(--maroon-soft); color: var(--maroon-deep); font-family: 'Marcellus', serif; letter-spacing: .2em; font-size: .9rem; border-radius: 3px; }
+  .venue { display: block; width: fit-content; max-width: 100%; margin: 1.1rem auto 0; padding: .5rem 1.4rem; border: 1.5px solid var(--maroon-soft); color: var(--maroon-deep); font-family: 'Marcellus', serif; letter-spacing: .2em; font-size: .9rem; border-radius: 3px; }
+  .names .parent { display: block; font-style: italic; font-weight: 500; color: var(--maroon-deep); font-size: .98rem; margin: .2rem 0 .3rem; }
+  .invited-by { margin: 1.4rem auto 0; }
+  .invited-by .ib-lbl { display: block; font-family: 'Marcellus', serif; font-size: .66rem; letter-spacing: .26em; text-transform: uppercase; color: var(--maroon-soft); }
+  .invited-by .ib-names { display: block; margin-top: .25rem; font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(1.05rem, 2.6vw, 1.3rem); color: var(--maroon-deep); }
+  .venue-block { margin-top: 1rem; }
+  .venue-addr { color: var(--ink); font-size: 1.02rem; margin: .5rem 0 .3rem; }
+  .directions { color: var(--maroon); font-family: 'Marcellus', serif; font-size: .8rem; letter-spacing: .12em; text-decoration: underline; text-underline-offset: 3px; }
+  .directions:hover { color: var(--maroon-deep); }
   .families { margin-top: 1.6rem; font-size: .98rem; color: var(--ink); line-height: 1.8; border-top: 1px solid rgba(122,46,46,.2); padding-top: 1.2rem; }
   .families .lbl { font-family: 'Marcellus', serif; font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--maroon-soft); display:block; margin-bottom:.2rem; }
-  .rsvp-cta { margin: 1.8rem auto 0; display: inline-flex; align-items: center; gap: .5rem; padding: .9rem 2.4rem; background: var(--maroon); color: var(--paper); font-family: 'Marcellus', serif; letter-spacing: .2em; text-transform: uppercase; font-size: .8rem; border: none; border-radius: 3px; cursor: pointer; transition: transform .2s, background .2s; }
+  .rsvp-cta { margin: 1.6rem auto 0; display: flex; width: fit-content; align-items: center; gap: .5rem; padding: .9rem 2.4rem; background: var(--maroon); color: var(--paper); font-family: 'Marcellus', serif; letter-spacing: .2em; text-transform: uppercase; font-size: .8rem; border: none; border-radius: 3px; cursor: pointer; transition: transform .2s, background .2s; }
   .rsvp-cta:hover { transform: translateY(-2px); background: var(--maroon-deep); }
 
   /* ═════════ RSVP FORM ═════════ */
   .rsvp-section { max-width: 720px; margin: 0 auto; padding: 1rem 1.2rem 4rem; }
   .rsvp-head { text-align: center; margin: 1.5rem 0 1.6rem; }
   .rsvp-head .om { color: var(--gold-light); font-size: 2rem; }
-  .rsvp-head h2 { font-family: 'Cinzel Decorative', serif; color: var(--paper); font-weight: 700; font-size: clamp(1.6rem,4vw,2.2rem); margin: .4rem 0; }
+  .rsvp-head h2 { font-family: 'Playfair Display', serif; color: var(--paper); font-weight: 700; font-size: clamp(1.6rem,4vw,2.2rem); margin: .4rem 0; }
   .rsvp-head p { color: #e7d4ac; font-style: italic; margin: 0; }
   .panel { background: linear-gradient(170deg, var(--paper) 0%, var(--paper2) 100%); border: 1px solid rgba(184,134,11,.4); border-radius: 4px; padding: 1.5rem; margin-bottom: 1.4rem; }
   .panel .section-label { font-family: 'Marcellus', serif; color: var(--maroon); font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; margin: 0 0 1.2rem; }
@@ -219,10 +237,119 @@
   .net-err { color: #c0392b; font-style: italic; margin-top: 1rem; }
   .success { text-align: center; padding: 3.5rem 1.5rem; }
   .success .om { color: var(--gold-light); font-size: 3rem; }
-  .success h2 { font-family: 'Cinzel Decorative', serif; color: var(--paper); font-weight: 700; font-size: 1.7rem; margin: .6rem 0; }
+  .success h2 { font-family: 'Playfair Display', serif; color: var(--paper); font-weight: 700; font-size: 1.7rem; margin: .6rem 0; }
   .success p { color: #e7d4ac; font-style: italic; font-size: 1.1rem; margin: 0; }
   .foot { text-align: center; color: rgba(231,212,172,.55); font-family: 'Marcellus', serif; font-size: .72rem; letter-spacing: .15em; padding: 1rem 0 2rem; }
   .hidden { display: none !important; }
+
+  /* ═════════ WEBSITE LAYOUT ═════════ */
+  html { scroll-padding-top: 72px; }               /* anchors land below sticky nav */
+  .section { padding: 4.5rem 1.2rem 2rem; scroll-margin-top: 72px; }
+  #invitation { padding-top: 5.5rem; }
+  .sec-head { text-align: center; margin: 0 auto 2rem; max-width: 640px; }
+  .sec-head .om { color: var(--gold-light); font-size: 1.9rem; font-family: 'Tiro Devanagari Sanskrit', serif; }
+  .sec-head h2 { font-family: 'Playfair Display', serif; color: var(--paper); font-weight: 700; font-size: clamp(1.25rem, 3.3vw, 1.75rem); margin: .4rem 0; }
+  .sec-head p { color: #e7d4ac; font-style: italic; margin: 0; font-size: .98rem; }
+  .sec-head::after { content: ""; display: block; width: 90px; height: 1px; margin: 1.1rem auto 0; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+
+  /* Sticky nav */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40; height: 64px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 1.4rem;
+    background: rgba(42,13,13,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(216,180,90,.3);
+    transform: translateY(-100%); transition: transform .6s ease .3s;
+  }
+  .scene.show .site-nav { transform: translateY(0); }
+  .brand { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--gold-light); text-decoration: none; font-size: 1.2rem; letter-spacing: .08em; }
+  .brand span, .foot-brand span { color: #f3e4c4; }
+  .nav-links { display: flex; align-items: center; gap: 1.6rem; }
+  .nav-links a {
+    color: #f3e4c4; text-decoration: none; font-family: 'Marcellus', serif; font-size: .78rem;
+    letter-spacing: .2em; text-transform: uppercase; padding: .3rem 0; border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+  .nav-links a.nav-rsvp { background: var(--gold); color: #2a0d0d; padding: .5rem 1.1rem; border-radius: 3px; border: none; }
+  .nav-links a.nav-rsvp:hover, .nav-links a.nav-rsvp.active { background: var(--gold-light); color: #2a0d0d; }
+  .nav-toggle { display: none; background: none; border: 1px solid rgba(216,180,90,.5); color: var(--gold-light); font-size: 1.2rem; width: 42px; height: 38px; border-radius: 4px; cursor: pointer; }
+  @media (max-width: 720px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; gap: 0;
+      background: rgba(42,13,13,.97); border-bottom: 1px solid rgba(216,180,90,.3);
+      max-height: 0; overflow: hidden; transition: max-height .35s ease;
+    }
+    .nav-links.open { max-height: 320px; }
+    .nav-links a { width: 100%; text-align: center; padding: 1rem 0; border-bottom: 1px solid rgba(216,180,90,.12); }
+    .nav-links a.nav-rsvp { border-radius: 0; }
+  }
+
+  /* Countdown */
+  .countdown { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .9rem; max-width: 620px; margin: 0 auto; }
+  .cd-box {
+    background: linear-gradient(170deg, var(--paper) 0%, var(--paper2) 100%);
+    border: 1.5px solid var(--gold); border-radius: 4px; padding: 1.2rem .4rem; text-align: center;
+    box-shadow: 0 14px 30px rgba(0,0,0,.35);
+  }
+  .cd-num { display: block; font-family: 'Playfair Display', serif; font-weight: 700; color: var(--maroon-deep); font-size: clamp(1.35rem, 4.8vw, 2.1rem); line-height: 1.1; }
+  .cd-lbl { display: block; margin-top: .3rem; font-family: 'Marcellus', serif; font-size: .64rem; letter-spacing: .22em; text-transform: uppercase; color: var(--maroon-soft); }
+  .cd-done { text-align: center; color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-top: 1rem; }
+
+  /* Event + venue */
+  .event-card {
+    max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: 1fr; overflow: hidden;
+    background: linear-gradient(170deg, var(--paper) 0%, var(--paper2) 100%);
+    border: 2px solid var(--gold); border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,.45);
+  }
+  @media (min-width: 820px) { .event-card { grid-template-columns: 1fr 1fr; } }
+  .event-info { padding: 2rem 1.8rem; }
+  .ev-row { display: flex; gap: .9rem; align-items: flex-start; padding: .8rem 0; border-bottom: 1px solid rgba(122,46,46,.15); color: var(--ink); font-size: 1rem; line-height: 1.5; }
+  .ev-row:last-of-type { border-bottom: none; }
+  .ev-ico { font-size: 1.3rem; line-height: 1.3; }
+  .ev-lbl { display: block; font-family: 'Marcellus', serif; font-size: .64rem; letter-spacing: .2em; text-transform: uppercase; color: var(--maroon-soft); margin-bottom: .1rem; }
+  .ev-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.4rem; }
+  .btn-gold, .btn-outline {
+    display: inline-flex; align-items: center; gap: .35rem; padding: .7rem 1.1rem; border-radius: 3px;
+    font-family: 'Marcellus', serif; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: transform .2s, background .2s, color .2s;
+  }
+  .btn-gold { background: var(--maroon); color: var(--paper); border: 1px solid var(--maroon); }
+  .btn-gold:hover { background: var(--maroon-deep); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--maroon); border: 1px solid var(--maroon-soft); }
+  .btn-outline:hover { background: rgba(122,46,46,.08); transform: translateY(-2px); }
+  .event-map { min-height: 320px; border-top: 2px solid var(--gold); }
+  @media (min-width: 820px) { .event-map { border-top: none; border-left: 2px solid var(--gold); } }
+  .event-map iframe { width: 100%; height: 100%; min-height: 320px; border: 0; display: block; filter: sepia(.25) saturate(.9); }
+
+  /* Footer */
+  .site-footer { text-align: center; padding: 3rem 1.2rem 5.5rem; border-top: 1px solid rgba(216,180,90,.25); margin-top: 2rem; }
+  .foot-brand { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--gold-light); font-size: 1.8rem; letter-spacing: .08em; }
+  .foot-names { font-family: 'Playfair Display', serif; color: var(--paper); font-size: 1.2rem; margin: .5rem 0 .2rem; }
+  .foot-meta { color: #e7d4ac; font-style: italic; margin: 0; }
+  .foot-sym { color: var(--gold); margin: .9rem 0; letter-spacing: .3em; }
+  .foot-top { color: var(--gold-light); font-family: 'Marcellus', serif; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; }
+  .foot-top:hover { text-decoration: underline; }
+
+  /* Music button */
+  .music-btn {
+    position: fixed; right: 20px; bottom: 20px; z-index: 45; display: flex; align-items: center; gap: .5rem;
+    padding: .7rem 1.1rem; border-radius: 999px; border: 1px solid rgba(216,180,90,.6); cursor: pointer;
+    background: linear-gradient(120deg, var(--maroon), var(--maroon-deep)); color: #f7e7c8;
+    font-family: 'Marcellus', serif; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+    box-shadow: 0 8px 22px rgba(0,0,0,.45); opacity: 0; transition: opacity .6s ease .6s, transform .2s;
+  }
+  .scene.show .music-btn { opacity: 1; }
+  .music-btn:hover { transform: translateY(-2px); }
+  .music-icon { font-size: 1.05rem; line-height: 1; }
+  .music-btn.playing .music-icon { animation: spin 3s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 640px) { .music-label { display: none; } .music-btn { padding: .8rem; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav, .music-btn { transition: none; }
+    .music-btn.playing .music-icon { animation: none; }
+  }
 </style>
 </head>
 <body>
@@ -308,8 +435,8 @@
       <div class="letter-peek">
         <div class="mini">
           <img src="./assets/namam.png" alt="" />
-          <h3>Rahul weds Harishini</h3>
-          <p>15 November 2026 · Dallas</p>
+          <h3>Harshini weds Rahul</h3>
+          <p>15 November 2026 · Sunset, TX</p>
         </div>
       </div>
     </div>
@@ -327,8 +454,22 @@
   <div class="intro-hint">🔊 best with sound on</div>
 </div>
 
-<!-- ═════════ REVEALED SCENE ═════════ -->
+<!-- ═════════ REVEALED SCENE (the website) ═════════ -->
 <div class="scene" id="scene">
+
+  <!-- Sticky site navigation -->
+  <header class="site-nav" id="siteNav">
+    <a class="brand" href="#invitation" aria-label="Back to top">H <span>♾</span> R</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#invitation">Invitation</a>
+      <a href="#countdown">Countdown</a>
+      <a href="#event">Venue</a>
+      <a href="#rsvp" class="nav-rsvp">RSVP</a>
+    </nav>
+  </header>
+
+  <section class="section" id="invitation">
   <div class="card-wrap">
     <div class="card">
       <svg class="card-toran toran" viewBox="0 0 400 54" preserveAspectRatio="none"><use href="#toran"/></svg>
@@ -356,31 +497,75 @@
         </p>
 
         <div class="names">
-          <span class="g">Rahul Reddy</span>
+          <span class="g">Harshini Reddy Salla</span>
+          <span class="parent">Daughter of Smt. Salla Padma &amp; Sri Salla Jeevan Reddy</span>
           <span class="weds">weds</span>
-          <span class="g">Harishini</span>
+          <span class="g">Rahul Reddy Velpur</span>
+          <span class="parent">Son of Smt. Velpoor Satyamma &amp; Sri Velpoor Ravindhar Reddy</span>
         </div>
 
         <p class="detail-line"><strong>Sunday, 15<sup>th</sup> November 2026</strong></p>
         <p class="detail-line">at 11:51 a.m. · Abhijith Lagnam</p>
-        <span class="venue">Venue · U.S.A., Dallas</span>
+        <span class="venue">Loco Lake Venue · Sunset, TX</span>
 
-        <div class="families">
-          <span class="lbl">With love from the families of</span>
-          Smt. Velpoor Narsavva &amp; Late Pedda Rajanna<br/>
-          Smt. &amp; Sri Salla Padma – Jeevan Reddy, Badguna<br/>
-          <span class="lbl" style="margin-top:.8rem;">Hosted by</span>
-          Smt. Velpoor Satyamma &amp; Sri Velpoor Ravindhar Reddy<br/>
-          Armoor, Dist. Nizamabad
+        <div class="invited-by">
+          <span class="ib-lbl">Invited by</span>
+          <span class="ib-names">Velpur Ranjith &amp; Lavani</span>
         </div>
 
         <button class="rsvp-cta" id="toRsvp">ॐ &nbsp;RSVP for the Wedding</button>
       </div>
     </div>
   </div>
+  </section>
 
-  <div class="rsvp-section" id="rsvp">
-    <div class="rsvp-head">
+  <!-- ═════════ COUNTDOWN ═════════ -->
+  <section class="section" id="countdown">
+    <div class="sec-head">
+      <div class="om">ॐ</div>
+      <h2>Counting Down to the Muhurtham</h2>
+      <p>Sunday, November 15, 2026 · 11:51 a.m. (Central)</p>
+    </div>
+    <div class="countdown" id="countdownBoxes" aria-live="polite">
+      <div class="cd-box"><span class="cd-num" id="cdDays">--</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-box"><span class="cd-num" id="cdHours">--</span><span class="cd-lbl">Hours</span></div>
+      <div class="cd-box"><span class="cd-num" id="cdMins">--</span><span class="cd-lbl">Minutes</span></div>
+      <div class="cd-box"><span class="cd-num" id="cdSecs">--</span><span class="cd-lbl">Seconds</span></div>
+    </div>
+    <p class="cd-done hidden" id="cdDone">Today is the day! 🪷</p>
+  </section>
+
+  <!-- ═════════ EVENT & VENUE ═════════ -->
+  <section class="section" id="event">
+    <div class="sec-head">
+      <div class="om">ॐ</div>
+      <h2>The Wedding</h2>
+      <p>Join us as we begin our forever</p>
+    </div>
+
+    <div class="event-card">
+      <div class="event-info">
+        <div class="ev-row"><span class="ev-ico">🗓️</span><div><span class="ev-lbl">Date</span>Sunday, November 15, 2026</div></div>
+        <div class="ev-row"><span class="ev-ico">🕰️</span><div><span class="ev-lbl">Muhurtham</span>11:51 a.m. · Abhijith Lagnam</div></div>
+        <div class="ev-row"><span class="ev-ico">📍</span><div><span class="ev-lbl">Venue</span>Loco Lake Venue<br/>2585 US-287, Sunset, TX 76270</div></div>
+        <div class="ev-row"><span class="ev-ico">👗</span><div><span class="ev-lbl">Attire</span>Traditional Indian or formal · ivory, gold &amp; pastels welcome</div></div>
+        <div class="ev-actions">
+          <a class="btn-gold" href="https://maps.google.com/?q=Loco+Lake+Venue,+2585+US-287,+Sunset,+TX+76270" target="_blank" rel="noopener noreferrer">📍 Get Directions</a>
+          <a class="btn-outline" id="gcalLink" target="_blank" rel="noopener noreferrer">＋ Google Calendar</a>
+          <button class="btn-outline" id="icsBtn" type="button">⬇ Apple / Outlook</button>
+        </div>
+      </div>
+      <div class="event-map">
+        <iframe
+          title="Map of Loco Lake Venue, Sunset, TX"
+          src="https://maps.google.com/maps?q=Loco+Lake+Venue,+2585+US-287,+Sunset,+TX+76270&z=13&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section rsvp-section" id="rsvp">
+    <div class="sec-head">
       <div class="om">ॐ</div>
       <h2>Kindly RSVP</h2>
       <p>Please respond by October 1, 2026</p>
@@ -440,17 +625,40 @@
       <p>Your RSVP has been received. We'll send a confirmation to your email soon. 🙏</p>
     </div>
 
-    <div class="foot">卐 &nbsp; Rahul &amp; Harishini · November 2026 · Dallas &nbsp; 卐</div>
-  </div>
+  </section>
+
+  <!-- ═════════ FOOTER ═════════ -->
+  <footer class="site-footer">
+    <div class="foot-brand">H <span>♾</span> R</div>
+    <p class="foot-names">Harshini &amp; Rahul</p>
+    <p class="foot-meta">Sunday, November 15, 2026 · Loco Lake Venue, Sunset, TX</p>
+    <p class="foot-sym">卐 &nbsp; ॐ &nbsp; 卐</p>
+    <a class="foot-top" href="#invitation">Back to top ↑</a>
+  </footer>
+
+  <!-- Floating music button -->
+  <button class="music-btn" id="musicBtn" type="button" aria-label="Play music" aria-pressed="false">
+    <span class="music-icon" id="musicIcon">♪</span><span class="music-label" id="musicLabel">Play Music</span>
+  </button>
+  <audio id="bgm" src="./assets/mangalyam.mp3" loop preload="none"></audio>
 </div>
 
 <script>
-  const API = "/api";
+  // On the live site, /api/* is proxied by CloudFront to API Gateway -> Lambda
+  // -> DynamoDB (harshini-rahul-wedding-rsvps). When the page is opened as a
+  // local file or from localhost there is no proxy, so call API Gateway directly
+  // (same Lambda, same table; CORS allows it).
+  const API = (location.protocol === "file:" || /^(localhost|127\.0\.0\.1)$/.test(location.hostname))
+    ? "https://5e21pxysa4.execute-api.us-east-1.amazonaws.com/api"
+    : "/api";
   const $ = (id) => document.getElementById(id);
 
   const slider = $("slider"), knob = $("knob"), fill = $("fill");
   const overlay = $("overlay"), envelope = $("envelope"), scene = $("scene");
   let dragging = false, opened = false;
+  // Music may auto-start only from the gesture that opens the envelope.
+  // After that, only the music button plays/pauses it.
+  let musicOnRelease = false;
 
   function maxX() { return slider.clientWidth - knob.offsetWidth - 10; }
   function setKnob(x) {
@@ -460,18 +668,29 @@
     fill.style.width = (x + knob.offsetWidth) + "px";
     return x;
   }
+  // Timeline after the slide completes:
+  //   0.0s  seal breaks + flap swings open
+  //   0.7s  letter starts sliding out (1.2s)  -> fully out at ~1.9s
+  //   hold  2s so the guest can see the letter
+  //   then  fade to the main invitation page
+  const LETTER_OUT_MS = 1900;
+  const HOLD_MS = 2000;
+
   function openInvitation() {
     if (opened) return;
     opened = true;
     knob.style.left = (5 + maxX()) + "px";
     fill.style.width = "100%";
+    overlay.classList.add("opening");
     envelope.classList.add("open");
-    try { window.dispatchEvent(new Event("hr:play-music")); } catch (e) {}
+    startMusic();
+    musicOnRelease = true;   // retry once on the finger/mouse release (counts as a user gesture)
     setTimeout(() => {
       scene.classList.add("show");
       overlay.classList.add("gone");
       document.body.style.overflow = "";
-    }, 1300);
+      window.scrollTo(0, 0);
+    }, LETTER_OUT_MS + HOLD_MS);
   }
   function pointerDown(e) { if (opened) return; dragging = true; knob.setPointerCapture?.(e.pointerId); }
   function pointerMove(e) {
@@ -482,7 +701,11 @@
     if (x >= maxX() - 4) openInvitation();
   }
   function pointerUp() {
-    if (opened) { dragging = false; return; }
+    if (opened) {
+      dragging = false;
+      if (musicOnRelease) { musicOnRelease = false; startMusic(); }
+      return;
+    }
     dragging = false;
     let v = parseFloat(knob.style.left || "5") - 5;
     const anim = setInterval(() => {
@@ -499,6 +722,98 @@
 
   $("toRsvp").addEventListener("click", () => { $("rsvp").scrollIntoView({ behavior: "smooth", block: "start" }); });
 
+  /* ───────── Navigation ───────── */
+  const navToggle = $("navToggle"), navLinks = $("navLinks");
+  navToggle.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.textContent = open ? "✕" : "☰";
+  });
+  navLinks.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.textContent = "☰";
+  }));
+  // Highlight the nav link for the section currently on screen
+  if ("IntersectionObserver" in window) {
+    const links = [...navLinks.querySelectorAll("a")];
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === "#" + en.target.id));
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    ["invitation", "countdown", "event", "rsvp"].forEach((id) => io.observe($(id)));
+  }
+
+  /* ───────── Countdown (muhurtham: 15 Nov 2026, 11:51 a.m. CST) ───────── */
+  const WEDDING = new Date("2026-11-15T11:51:00-06:00");
+  const pad = (n) => String(n).padStart(2, "0");
+  function tick() {
+    const diff = WEDDING - Date.now();
+    if (diff <= 0) {
+      $("countdownBoxes").classList.add("hidden");
+      $("cdDone").classList.remove("hidden");
+      return false;
+    }
+    $("cdDays").textContent = Math.floor(diff / 86400000);
+    $("cdHours").textContent = pad(Math.floor(diff / 3600000) % 24);
+    $("cdMins").textContent = pad(Math.floor(diff / 60000) % 60);
+    $("cdSecs").textContent = pad(Math.floor(diff / 1000) % 60);
+    return true;
+  }
+  if (tick()) { const cd = setInterval(() => { if (!tick()) clearInterval(cd); }, 1000); }
+
+  /* ───────── Add to calendar ───────── */
+  const EV = {
+    title: "Wedding of Harshini & Rahul",
+    start: "20261115T175100Z",   // 11:51 a.m. CST
+    end:   "20261115T235100Z",
+    location: "Loco Lake Venue, 2585 US-287, Sunset, TX 76270",
+    details: "Muhurtham 11:51 a.m. (Abhijith Lagnam). We look forward to celebrating with you!",
+  };
+  $("gcalLink").href = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    + "&text=" + encodeURIComponent(EV.title)
+    + "&dates=" + EV.start + "/" + EV.end
+    + "&location=" + encodeURIComponent(EV.location)
+    + "&details=" + encodeURIComponent(EV.details);
+  $("icsBtn").addEventListener("click", () => {
+    const ics = [
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Harshini & Rahul//Wedding//EN",
+      "BEGIN:VEVENT",
+      "UID:harshini-rahul-wedding-20261115@invite",
+      "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z",
+      "DTSTART:" + EV.start, "DTEND:" + EV.end,
+      "SUMMARY:" + EV.title,
+      "LOCATION:" + EV.location.replace(/,/g, "\\,"),
+      "DESCRIPTION:" + EV.details.replace(/,/g, "\\,"),
+      "END:VEVENT", "END:VCALENDAR",
+    ].join("\r\n");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+    a.download = "harshini-rahul-wedding.ics";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  /* ───────── Music ───────── */
+  const bgm = $("bgm"), musicBtn = $("musicBtn");
+  function setMusicUi(playing) {
+    musicBtn.classList.toggle("playing", playing);
+    musicBtn.setAttribute("aria-pressed", String(playing));
+    musicBtn.setAttribute("aria-label", playing ? "Pause music" : "Play music");
+    $("musicLabel").textContent = playing ? "Pause Music" : "Play Music";
+  }
+  function startMusic() {
+    if (!bgm.paused) return;
+    bgm.volume = 0.6;
+    bgm.play().then(() => setMusicUi(true)).catch(() => setMusicUi(false));
+  }
+  musicBtn.addEventListener("click", () => {
+    musicOnRelease = false;
+    if (bgm.paused) startMusic(); else { bgm.pause(); setMusicUi(false); }
+  });
+
   const state = { adults: 1, kids: 0 };
   function clamp(field, delta) {
     const min = field === "adults" ? 1 : 0;
@@ -514,6 +829,7 @@
     e.preventDefault();
     const btn = $("sendBtn"), vErr = $("validationErr"), nErr = $("netErr");
     vErr.classList.add("hidden"); nErr.classList.add("hidden");
+    const showErr = (msg) => { nErr.textContent = msg || "Something went wrong. Please try again or email us directly."; nErr.classList.remove("hidden"); };
     const primaryName = $("primaryName").value.trim();
     const email = $("email").value.trim();
     if (!primaryName || !email) { vErr.textContent = "Please enter your name and email."; vErr.classList.remove("hidden"); return; }
@@ -530,8 +846,10 @@
         $("rsvpForm").classList.add("hidden");
         $("successView").classList.remove("hidden");
         $("rsvp").scrollIntoView({ behavior: "smooth", block: "start" });
-      } else { console.error("RSVP error:", data); nErr.classList.remove("hidden"); }
-    } catch (err) { console.error("RSVP fetch error:", err); nErr.classList.remove("hidden"); }
+      } else if (res.status === 409) {
+        showErr(data.message);   // already RSVP'd with this email or name
+      } else { console.error("RSVP error:", data); showErr(); }
+    } catch (err) { console.error("RSVP fetch error:", err); showErr(); }
     finally { btn.disabled = false; btn.textContent = "ॐ \u00A0Send RSVP"; }
   });
 </script>

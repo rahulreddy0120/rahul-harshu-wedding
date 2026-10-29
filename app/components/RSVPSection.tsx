@@ -57,6 +57,7 @@ export default function RSVPSection() {
     message: "",
   });
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const [validationError, setValidationError] = useState("");
 
   const updateGuest = (index: number, field: keyof GuestEntry, value: number | boolean) => {
@@ -118,12 +119,18 @@ export default function RSVPSection() {
         requestAnimationFrame(() => {
           document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth", block: "start" });
         });
+      } else if (res.status === 409) {
+        // Already RSVP'd with this email or name — show the server's explanation
+        setErrorMessage(data.message || "");
+        setSubmitState("error");
       } else {
         console.error("RSVP error:", data);
+        setErrorMessage("");
         setSubmitState("error");
       }
     } catch (err) {
       console.error("RSVP fetch error:", err);
+      setErrorMessage("");
       setSubmitState("error");
     }
   };
@@ -507,7 +514,7 @@ export default function RSVPSection() {
                 </motion.button>
                 {submitState === "error" && (
                   <p className="mt-4 text-sm" style={{ color: "#E57373", fontFamily: "'Cormorant Garamond', serif" }}>
-                    Something went wrong. Please try again or email us directly.
+                    {errorMessage || "Something went wrong. Please try again or email us directly."}
                   </p>
                 )}
               </div>

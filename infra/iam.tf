@@ -44,6 +44,16 @@ resource "aws_iam_role_policy" "lambda_rsvp_policy" {
         ]
       },
       {
+        # Admin "delete RSVP" — scoped to the RSVP table only
+        Sid    = "DynamoDBRSVPDelete"
+        Effect = "Allow"
+        Action = [
+          "dynamodb:DeleteItem",
+          "dynamodb:BatchWriteItem"
+        ]
+        Resource = [aws_dynamodb_table.rsvps.arn]
+      },
+      {
         Sid    = "SESEmail"
         Effect = "Allow"
         Action = [

@@ -17,6 +17,7 @@ s3 = boto3.client("s3")
 import hashlib
 import hmac
 import base64
+import re
 import time
 
 RSVP_TABLE = os.environ["RSVP_TABLE"]
@@ -116,11 +117,51 @@ def handler(event: dict, context) -> dict:
             return respond(401, {"error": "Unauthorized"})
         return list_rsvps(event)
 
+    # POST /api/rsvps/delete — delete selected RSVPs (HOST ONLY — requires valid token)
+    if method == "POST" and path == "/api/rsvps/delete":
+        if not is_authorized(event):
+            return respond(401, {"error": "Unauthorized"})
+        return delete_rsvps(event)
+
     # GET /api/health
     if path == "/api/health":
         return respond(200, {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat()})
 
     return respond(404, {"error": "Not found"})
+
+
+def _norm_email(value: str) -> str:
+    return (value or "").strip().lower()
+
+
+def _norm_name(value: str) -> str:
+    """'  Ravi  &  Family ' -> 'ravi & family' (case, punctuation and spacing ignored)."""
+    cleaned = re.sub(r"[^a-z0-9& ]+", " ", (value or "").lower())
+    return " ".join(cleaned.split())
+
+
+def find_duplicate(email: str, primary_name: str):
+    """Return ("email"|"name", existing_item) if an RSVP already matches, else None.
+
+    The table has no index on name, so this scans (key + 2 attributes only).
+    Fine at wedding scale (hundreds of rows); paginates past the 1 MB page limit.
+    """
+    want_email, want_name = _norm_email(email), _norm_name(primary_name)
+    table = dynamodb.Table(RSVP_TABLE)
+    kwargs = {
+        "ProjectionExpression": "#i, #e, #n",
+        "ExpressionAttributeNames": {"#i": "rsvpId", "#e": "email", "#n": "primaryName"},
+    }
+    while True:
+        page = table.scan(**kwargs)
+        for item in page.get("Items", []):
+            if want_email and _norm_email(item.get("email")) == want_email:
+                return "email", item
+            if want_name and _norm_name(item.get("primaryName")) == want_name:
+                return "name", item
+        if "LastEvaluatedKey" not in page:
+            return None
+        kwargs["ExclusiveStartKey"] = page["LastEvaluatedKey"]
 
 
 def submit_rsvp(event: dict) -> dict:
@@ -138,6 +179,19 @@ def submit_rsvp(event: dict) -> dict:
     guests = body.get("guests", [])
     if not guests:
         return respond(400, {"error": "At least one guest is required"})
+
+    # Reject duplicates: same email (case-insensitive) or same name (case/spacing-insensitive)
+    dup = find_duplicate(email, primary_name)
+    if dup:
+        field, existing = dup
+        print(f"Duplicate RSVP blocked ({field}): new={primary_name!r}/{email!r} existing={existing.get('rsvpId')}")
+        what = "email address" if field == "email" else "name"
+        return respond(409, {
+            "error": "duplicate",
+            "duplicateOf": field,
+            "message": (f"We already have an RSVP under this {what}. "
+                        "If you need to change it, please contact Harshini & Rahul directly."),
+        })
 
     # Build RSVP record
     rsvp_id = str(uuid.uuid4())
@@ -238,6 +292,50 @@ def list_rsvps(event: dict) -> dict:
         "rsvps": items,
     }
     return respond(200, summary)
+
+
+MAX_DELETE_BATCH = 100
+
+
+def delete_rsvps(event: dict) -> dict:
+    """Delete RSVPs by primary key (rsvpId + submittedAt) — for admin use.
+
+    Body: {"items": [{"rsvpId": "...", "submittedAt": "..."}, ...]}
+    The S3 JSON backups are intentionally kept as an audit trail.
+    """
+    try:
+        body = json.loads(event.get("body") or "{}")
+    except json.JSONDecodeError:
+        return respond(400, {"error": "Invalid JSON body"})
+
+    items = body.get("items")
+    if not isinstance(items, list) or not items:
+        return respond(400, {"error": "items must be a non-empty list"})
+    if len(items) > MAX_DELETE_BATCH:
+        return respond(400, {"error": f"Too many items (max {MAX_DELETE_BATCH} per request)"})
+
+    keys = []
+    seen = set()
+    for it in items:
+        if not isinstance(it, dict):
+            return respond(400, {"error": "Each item must be an object"})
+        rsvp_id = it.get("rsvpId")
+        submitted_at = it.get("submittedAt")
+        if not (isinstance(rsvp_id, str) and isinstance(submitted_at, str)
+                and 0 < len(rsvp_id) <= 100 and 0 < len(submitted_at) <= 64):
+            return respond(400, {"error": "Each item needs string rsvpId and submittedAt"})
+        k = (rsvp_id, submitted_at)
+        if k not in seen:  # BatchWrite rejects duplicate keys in one request
+            seen.add(k)
+            keys.append({"rsvpId": rsvp_id, "submittedAt": submitted_at})
+
+    table = dynamodb.Table(RSVP_TABLE)
+    with table.batch_writer() as batch:
+        for key in keys:
+            batch.delete_item(Key=key)
+
+    print(f"Admin deleted {len(keys)} RSVP(s): {[k['rsvpId'] for k in keys]}")
+    return respond(200, {"success": True, "deleted": len(keys)})
 
 
 def send_confirmation_email(record: dict):
